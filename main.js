@@ -53,9 +53,26 @@ function changePlayButtonClass() {
 }
 
 function playSong() {
+  changePlayButtonClass();
+  // incrementPlayCounter();
+  if (playIcon.className === "fa-solid fa-play") {
+    audio.pause()
+  } else {
+    audio.play();
+  }
 }
 
-function addSong() {
+function changeSong() {
+}
+
+function addSong(event) {
+  if (event.target.className === "song") {
+    const song = event.target;
+    const newSong = song.cloneNode(true);
+    newSong.className = "added-song";
+    likeIcon.className = "fa-solid fa-heart fa-lg";
+    songLibrary.appendChild(newSong);
+  }
 }
 
 function removeSong(song) {
@@ -67,18 +84,7 @@ function removeSong(song) {
 function nextSong() {
 }
 
-// Add click event listeners to the play/pause, previous, and next buttons
-playButton.addEventListener("click", () => {
-  changePlayButtonClass();
-  // incrementPlayCounter();
-  if (playIcon.className === "fa-solid fa-play") {
-    audio.pause()
-  } else {
-    audio.play();
-  }
-});
-
-prevButton.addEventListener("click", () => {
+function prevSong() {
   // If the audio is currently playing, reset the audio and automatically start playing it + update the counter
   if (audio.paused === false) {
     audio.load();
@@ -90,7 +96,16 @@ prevButton.addEventListener("click", () => {
   }
   // Reset the progress bar when the song is restarted
   progressBar.style.width = 0;
-});
+}
+
+function currentSong() {
+  
+}
+
+// Add click event listeners to the play/pause, previous, and next buttons
+playButton.addEventListener("click", playSong);
+
+prevButton.addEventListener("click", prevSong);
 
 nextButton.addEventListener("click", () => {
 });
