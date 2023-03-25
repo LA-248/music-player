@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7d49638380.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+  <div class="main-container">
+    <audio id="my-audio">
+      <source id="audioSource" src="" type="audio/mpeg">
+    </audio>
+    
+    <div class="background-card">
+      <div class="explore-button">
+        <button id="explore-songs">Explore songs</button>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="left-card">
+          <div class="album-cover-wrapper">
+            <img id="album-cover" src="">
+           </div>
+
+          <div class="song-info">
+            <p id="song-title"></p>
+            <p id="artist-name"></p>
+          </div>
+  
+          <div class="all-controls">
+            <div class="playback-buttons">
+              <button class="prev-button">
+                <i class="fa-solid fa-backward"></i>
+              </button>
+              <button class="play-button">
+                <i id="play-icon" class="fa-solid fa-play"></i>
+              </button>
+              <button class="next-button">
+                <i class="fa-solid fa-forward"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="bar-and-slider">
+            <div id="progress-bar"></div>
+            <div class="volume-slider">
+              <input type="range" min="0" max="1" step="0.01" value="1" id="volume-control">
+            </div>
+          </div>
+          <div id="play-count">Number of plays: 0</div>
+        </div>
+        
+        <div class="right-card">
+          <p id="song-library-header">Song Library</p>
+          <div id="song-library-divider">
+            <hr>
+          </div>
+          <button id="remove-song">Remove song</button>
+
+          <div id="song-library-wrapper">
+            <div class="song-library">
+            </div>
+          </div>
+
+          <!--
+          <div id="song-library-wrapper">
+            <div id="song-library">
+              <div class="song-button" data-title="Give Life Back to Music">Give Life Back to Music - Daft Punk</div>
+              <div class="song-button" data-title="I Feel It Coming">I Feel It Coming - The Weeknd, Daft Punk</div>
+              <div class="song-button" data-title="Digital Love">Digital Love - Daft Punk</div>
+              <div class="song-button" data-title="Safe and Sound">Safe and Sound - Justice</div>
+            </div>
+          </div>
+          -->
+        </div>
+
+        <!-- The Modal -->
+        <div id="song-database-modal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Explore Songs</h1>
+            <p class="database-header">Add songs to your library with a simple search</p>
+
+            <div class="search-bar">
+              <label for="music-search"></label>
+              <input type="search" id="music-search" name="music-search" placeholder="Search for a song">
+            </div>
+
+            <div id="database-divider">
+              <hr>
+            </div>
+
+            <p id="dev-choices">Developer's choices</p>
+
+            <div class="song-content-wrapper">
+              <div class="song-content">
+                <div class="song-database">
+                  <div class="song" data-title="Give Life Back to Music" data-artist="Daft Punk" data-source="songs/Daft Punk - Give Life Back to Music.mp3" data-cover="images/album-covers/random-access-memories.jpeg" data-streams="0" data-id="1">Give Life Back to Music - Daft Punk</div>
+                  <div class="song" data-title="I Feel It Coming" data-artist="The Weeknd, Daft Punk" data-source="songs/The Weeknd - I Feel It Coming.mp3" data-cover="images/album-covers/starboy.jpg" data-streams="0" data-id="2">I Feel It Coming - The Weeknd, Daft Punk</div>
+                  <div class="song" data-title="The Way I Are" data-artist="Timbaland" data-source="songs/Timbaland - The Way I Are.mp3" data-cover="images/album-covers/shock-value.jpg" data-streams="0" data-id="3">The Way I Are - Timbaland</div>
+                  <div class="song" data-title="Digital Love" data-artist="Daft Punk" data-source="songs/Daft Punk - Digital Love.mp3" data-cover="images/album-covers/discovery.png" data-streams="0" data-id="4">Digital Love - Daft Punk</div>
+                  <div class="song" data-title="Safe and Sound" data-artist="Justice" data-source="songs/Justice - Safe and Sound.mp3" data-cover="images/album-covers/woman.jpeg" data-streams="0" data-id="5">Safe and Sound - Justice</div>
+                </div>
+
+                <div class="like-song-wrapper">
+                  <div><i id="like-icon" title="Save to your library" class="fa-regular fa-heart fa-lg"></i></div>
+                  <div><i id="like-icon" title="Save to your library" class="fa-regular fa-heart fa-lg"></i></div>
+                  <div><i id="like-icon" title="Save to your library" class="fa-regular fa-heart fa-lg"></i></div>
+                  <div><i id="like-icon"" title="Save to your library" class="fa-regular fa-heart fa-lg"></i></div>
+                  <div><i id="like-icon" title="Save to your library" class="fa-regular fa-heart fa-lg"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
