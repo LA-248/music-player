@@ -65,14 +65,7 @@ function playSong() {
 function changeSong() {
 }
 
-function addSong(event) {
-  if (event.target.className === "song") {
-    const song = event.target;
-    const newSong = song.cloneNode(true);
-    newSong.className = "added-song";
-    likeIcon.className = "fa-solid fa-heart fa-lg";
-    songLibrary.appendChild(newSong);
-  }
+function addSong() {
 }
 
 function removeSong(song) {
@@ -99,7 +92,6 @@ function prevSong() {
 }
 
 function currentSong() {
-  
 }
 
 // Add click event listeners to the play/pause, previous, and next buttons
