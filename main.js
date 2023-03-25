@@ -128,30 +128,31 @@ window.onclick = event => {
 // Set a flag to keep track of whether the text has been appended or not
 let isErrorMessageAppended = false;
 
-databaseSong.forEach(song => {
-  song.addEventListener("click", () => {
+songDatabase.addEventListener("click", event => {
+  if (event.target.className === "song") {
+    const song = event.target;
     const newSong = song.cloneNode(true);
     newSong.className = "added-song";
     likeIcon.className = "fa-solid fa-heart fa-lg";
     songLibrary.appendChild(newSong);
-    
+  
     removeSong(newSong);
-    
+  
     newSong.addEventListener("click", () => {
       songTitle.textContent = song.dataset.title;
       artistName.textContent = song.dataset.artist;
       albumCover.src = song.dataset.cover;
       audio.src = song.dataset.source;
-      
+    
       if (playIcon.className === "fa-solid fa-play") {
         playIcon.className = "fa-solid fa-pause";
       }
-      
+    
       try {
         audio.load();
         audio.play();
       } catch(err) {
-         // Check if the text has already been appended
+        // Check if the text has already been appended
         if (!isErrorMessageAppended) {
           // If it hasn't, create a new element with the content to append
           let errorMessage = document.createElement("p");
@@ -166,7 +167,7 @@ databaseSong.forEach(song => {
         }
       }
     });
-  });
+  }
 });
 
 
