@@ -152,7 +152,7 @@ songContent.addEventListener("click", event => {
     
       newSong.addEventListener("click", () => {
         songTitle.textContent = song.dataset.title;
-        artistName.textContent = song.dataset.artist + " | " + song.dataset.album;
+        artistName.textContent = `${song.dataset.artist} | ${song.dataset.album}`;
         albumCover.src = song.dataset.cover;
         audio.src = song.dataset.source;
       
