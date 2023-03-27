@@ -15,6 +15,7 @@ const artistName = document.getElementById("artist-name");
 const albumCover = document.getElementById("album-cover");
 const songLibrary = document.querySelector(".song-library");
 const songDatabase = document.querySelector(".song-database");
+const songContent = document.querySelector(".song-content");
 
 const databaseSong = document.querySelectorAll(".song");
 const addedSong = document.querySelectorAll(".added-song");
@@ -23,7 +24,7 @@ const songDatabaseModal = document.getElementById("song-database-modal");
 const exploreSongsButton = document.getElementById("explore-songs");
 const closeIcon = document.getElementsByClassName("close")[0];
 
-const likeIcon = document.getElementById("like-icon");
+const likeIcon = document.querySelectorAll("like-icon");
 
 const removeSongButton = document.getElementById("remove-song");
 
@@ -69,8 +70,10 @@ function addSong() {
 }
 
 function removeSong(song) {
-  removeSongButton.addEventListener("click", () => {
-    songLibrary.removeChild(song);
+  likeSongWrapper.addEventListener("click", event => {
+    if (event.target.className === "fa-regular fa-heart fa-lg") {
+      songLibrary.removeChild(song);
+    }
   })
 }
 
@@ -135,45 +138,56 @@ window.onclick = event => {
 // Set a flag to keep track of whether the text has been appended or not
 let isErrorMessageAppended = false;
 
-songDatabase.addEventListener("click", event => {
-  if (event.target.className === "song") {
-    const song = event.target;
-    const newSong = song.cloneNode(true);
-    newSong.className = "added-song";
-    likeIcon.className = "fa-solid fa-heart fa-lg";
-    songLibrary.appendChild(newSong);
-  
-    removeSong(newSong);
-  
-    newSong.addEventListener("click", () => {
-      songTitle.textContent = song.dataset.title;
-      artistName.textContent = song.dataset.artist;
-      albumCover.src = song.dataset.cover;
-      audio.src = song.dataset.source;
+const likeSongWrapper = document.querySelector(".like-song-wrapper");
+songContent.addEventListener("click", event => {
+  if (event.target.className === "fa-solid fa-heart fa-lg") {
+    databaseSong.forEach(song => {
+      const newSong = song.cloneNode(true);
+      newSong.className = "added-song";
+      songLibrary.appendChild(newSong);
     
-      if (playIcon.className === "fa-solid fa-play") {
-        playIcon.className = "fa-solid fa-pause";
-      }
+      removeSong(newSong);
     
-      try {
-        audio.load();
-        audio.play();
-      } catch(err) {
-        // Check if the text has already been appended
-        if (!isErrorMessageAppended) {
-          // If it hasn't, create a new element with the content to append
-          let errorMessage = document.createElement("p");
-          errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
-          errorMessage.style.fontSize = "15px";
-          errorMessage.style.fontWeight = "600";
-          errorMessage.style.margin = "20px 0px -20px 35px"
-          backgroundCard.appendChild(errorMessage);
-          // Update the flag to indicate that the text has been appended
-          // This way, the error text will only be appended once no matter how many times the user clicks the song
-          isErrorMessageAppended = true;
+      newSong.addEventListener("click", () => {
+        songTitle.textContent = song.dataset.title;
+        artistName.textContent = song.dataset.artist;
+        albumCover.src = song.dataset.cover;
+        audio.src = song.dataset.source;
+      
+        if (playIcon.className === "fa-solid fa-play") {
+          playIcon.className = "fa-solid fa-pause";
         }
-      }
+      
+        try {
+          audio.load();
+          audio.play();
+        } catch(err) {
+          // Check if the text has already been appended
+          if (!isErrorMessageAppended) {
+            // If it hasn't, create a new element with the content to append
+            let errorMessage = document.createElement("p");
+            errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
+            errorMessage.style.fontSize = "15px";
+            errorMessage.style.fontWeight = "600";
+            errorMessage.style.margin = "20px 0px -20px 35px"
+            backgroundCard.appendChild(errorMessage);
+            // Update the flag to indicate that the text has been appended
+            // This way, the error text will only be appended once no matter how many times the user clicks the song
+            isErrorMessageAppended = true;
+          }
+        }
+      });
     });
+  }
+});
+
+console.log(databaseSong);
+
+likeSongWrapper.addEventListener("click", event => {
+  if (event.target.className === "fa-regular fa-heart fa-lg") {
+    event.target.className = "fa-solid fa-heart fa-lg";
+  } else {
+    event.target.className = "fa-regular fa-heart fa-lg";
   }
 });
 
