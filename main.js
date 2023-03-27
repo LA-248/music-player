@@ -139,9 +139,11 @@ window.onclick = event => {
 let isErrorMessageAppended = false;
 
 const likeSongWrapper = document.querySelector(".like-song-wrapper");
+
 songContent.addEventListener("click", event => {
   if (event.target.className === "fa-solid fa-heart fa-lg") {
-    databaseSong.forEach(song => {
+    for (let i = 0; i < databaseSong.length; i++) {
+      const song = databaseSong[i];
       const newSong = song.cloneNode(true);
       newSong.className = "added-song";
       songLibrary.appendChild(newSong);
@@ -150,7 +152,7 @@ songContent.addEventListener("click", event => {
     
       newSong.addEventListener("click", () => {
         songTitle.textContent = song.dataset.title;
-        artistName.textContent = song.dataset.artist;
+        artistName.textContent = song.dataset.artist + " | " + song.dataset.album;
         albumCover.src = song.dataset.cover;
         audio.src = song.dataset.source;
       
@@ -177,7 +179,7 @@ songContent.addEventListener("click", event => {
           }
         }
       });
-    });
+    };
   }
 });
 
@@ -196,28 +198,43 @@ likeSongWrapper.addEventListener("click", event => {
 const songStorage = [
   {
     title: "Give Life Back to Music",
+    album: "Random Access Memories",
     artist: "Daft Punk",
     source: "songs/Daft Punk - Give Life Back to Music.mp3",
     cover: "images/album-covers/random-access-memories.jpeg",
-    streams: "",
+    id: 1
   },
   {
     title: "I Feel It Coming",
+    album: "Starboy",
     artist: "The Weeknd, Daft Punk",
     source: "songs/The Weeknd - I Feel It Coming.mp3",
     cover: "images/album-covers/starboy.jpg",
+    id: 2
   },
   {
     title: "Digital Love",
+    album: "Discovery",
     artist: "Daft Punk",
     source: "songs/Daft Punk - Digital Love.mp3",
     cover: "images/album-covers/discovery.png",
+    id: 3
   },
   {
     title: "Safe and Sound",
+    album: "Woman",
     artist: "Justice",
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
+    id: 4
+  },
+  {
+    title: "The Way I Are",
+    album: "Shock Value",
+    artist: "Timbaland",
+    source: "songs/Timbaland - The Way I Are.mp3",
+    cover: "images/album-covers/shock-value.jpg",
+    id: 4
   }
 ];
 */
