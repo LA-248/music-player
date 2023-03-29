@@ -135,6 +135,14 @@ window.onclick = event => {
   }
 }
 
+window.onload = () => {
+  const song = databaseSong;
+  songTitle.textContent = song.item(0).dataset.title;
+  artistName.textContent = `${song.item(0).dataset.artist} | ${song.item(0).dataset.album}`;
+  albumCover.src = song.item(0).dataset.cover;
+  audio.src = song.item(0).dataset.source;
+}
+
 // Set a flag to keep track of whether the text has been appended or not
 let isErrorMessageAppended = false;
 
@@ -234,7 +242,7 @@ const songStorage = [
     artist: "Timbaland",
     source: "songs/Timbaland - The Way I Are.mp3",
     cover: "images/album-covers/shock-value.jpg",
-    id: 4
+    id: 5
   }
 ];
 */
