@@ -136,11 +136,11 @@ window.onclick = event => {
 }
 
 window.onload = () => {
-  const song = databaseSong;
-  songTitle.textContent = song.item(0).dataset.title;
-  artistName.textContent = `${song.item(0).dataset.artist} | ${song.item(0).dataset.album}`;
-  albumCover.src = song.item(0).dataset.cover;
-  audio.src = song.item(0).dataset.source;
+  const song = songStorage;
+  songTitle.textContent = song[0].title;
+  artistName.textContent = `${song[0].artist} | ${song[0].album}`;
+  albumCover.src = song[0].cover;
+  audio.src = song[0].source;
 }
 
 // Set a flag to keep track of whether the text has been appended or not
@@ -210,6 +210,13 @@ databaseSong.forEach((item, index) => {
     artistName.textContent = `${song.artist} | ${song.album}`;
     albumCover.src = song.cover;
     audio.src = song.source;
+
+    if (playIcon.className === "fa-solid fa-play") {
+      playIcon.className = "fa-solid fa-pause";
+    }
+
+    audio.load();
+    audio.play();
   })
 })
 
