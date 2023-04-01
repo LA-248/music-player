@@ -148,6 +148,7 @@ let isErrorMessageAppended = false;
 
 const likeSongWrapper = document.querySelector(".like-song-wrapper");
 
+/*
 songContent.addEventListener("click", event => {
   if (event.target.className === "fa-solid fa-heart fa-lg") {
     for (let i = 0; i < databaseSong.length; i++) {
@@ -190,6 +191,7 @@ songContent.addEventListener("click", event => {
     };
   }
 });
+*/
 
 console.log(databaseSong);
 
@@ -201,8 +203,17 @@ likeSongWrapper.addEventListener("click", event => {
   }
 });
 
+databaseSong.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    const song = songStorage[index];
+    songTitle.textContent = song.title;
+    artistName.textContent = `${song.artist} | ${song.album}`;
+    albumCover.src = song.cover;
+    audio.src = song.source;
+  })
+})
 
-/* Array of objects representing the songs in the database
+// Array of objects representing the songs in the database
 const songStorage = [
   {
     title: "Give Life Back to Music",
@@ -221,12 +232,20 @@ const songStorage = [
     id: 2
   },
   {
+    title: "The Way I Are",
+    album: "Shock Value",
+    artist: "Timbaland",
+    source: "songs/Timbaland - The Way I Are.mp3",
+    cover: "images/album-covers/shock-value.jpg",
+    id: 3
+  },
+  {
     title: "Digital Love",
     album: "Discovery",
     artist: "Daft Punk",
     source: "songs/Daft Punk - Digital Love.mp3",
     cover: "images/album-covers/discovery.png",
-    id: 3
+    id: 4
   },
   {
     title: "Safe and Sound",
@@ -234,15 +253,6 @@ const songStorage = [
     artist: "Justice",
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
-    id: 4
-  },
-  {
-    title: "The Way I Are",
-    album: "Shock Value",
-    artist: "Timbaland",
-    source: "songs/Timbaland - The Way I Are.mp3",
-    cover: "images/album-covers/shock-value.jpg",
     id: 5
   }
 ];
-*/
