@@ -113,12 +113,20 @@ function addSong() {
 }
 
 function removeSong(song) {
-  likeSongWrapper.addEventListener("click", event => {
+  likeSongWrapper.addEventListener("click", function removeSongHandler(event) {
     if (event.target.className === "fa-regular fa-heart fa-lg") {
-      songLibrary.removeChild(song);
+      try {
+        songLibrary.removeChild(song);
+        console.log(songLibrary);
+        console.log(song);
+      } catch (error) {
+        console.error('Error removing song:', error);
+      }
+      likeSongWrapper.removeEventListener("click", removeSongHandler);
     }
-  })
+  });
 }
+
 
 function nextSong() {
 }
@@ -200,6 +208,7 @@ likeIcon.forEach((item, index) => {
     likedSong.textContent = `${song.title} - ${song.artist}`;
     songLibrary.appendChild(likedSong);
     console.log(song)
+    removeSong(likedSong);
   })
 })
 
