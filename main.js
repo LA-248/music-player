@@ -18,15 +18,58 @@ const songDatabase = document.querySelector(".song-database");
 const songContent = document.querySelector(".song-content");
 
 const databaseSong = document.querySelectorAll(".song");
-const addedSong = document.querySelectorAll(".added-song");
 
 const songDatabaseModal = document.getElementById("song-database-modal");
 const exploreSongsButton = document.getElementById("explore-songs");
 const closeIcon = document.getElementsByClassName("close")[0];
 
-const likeIcon = document.querySelectorAll("like-icon");
+const likeIcon = document.querySelectorAll(".like-icon");
 
 const removeSongButton = document.getElementById("remove-song");
+
+// Array of objects representing the songs in the database
+const songStorage = [
+  {
+    title: "Give Life Back to Music",
+    album: "Random Access Memories",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Give Life Back to Music.mp3",
+    cover: "images/album-covers/random-access-memories.jpeg",
+    id: 1
+  },
+  {
+    title: "I Feel It Coming",
+    album: "Starboy",
+    artist: "The Weeknd, Daft Punk",
+    source: "songs/The Weeknd - I Feel It Coming.mp3",
+    cover: "images/album-covers/starboy.jpg",
+    id: 2
+  },
+  {
+    title: "The Way I Are",
+    album: "Shock Value",
+    artist: "Timbaland",
+    source: "songs/Timbaland - The Way I Are.mp3",
+    cover: "images/album-covers/shock-value.jpg",
+    id: 3
+  },
+  {
+    title: "Digital Love",
+    album: "Discovery",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Digital Love.mp3",
+    cover: "images/album-covers/discovery.png",
+    id: 4
+  },
+  {
+    title: "Safe and Sound",
+    album: "Woman",
+    artist: "Justice",
+    source: "songs/Justice - Safe and Sound.mp3",
+    cover: "images/album-covers/woman.jpeg",
+    id: 5
+  }
+];
 
 // Initialize a counter and retrieve the previous value from local storage
 let counter = 0;
@@ -148,52 +191,56 @@ let isErrorMessageAppended = false;
 
 const likeSongWrapper = document.querySelector(".like-song-wrapper");
 
-/*
-songContent.addEventListener("click", event => {
-  if (event.target.className === "fa-solid fa-heart fa-lg") {
-    for (let i = 0; i < databaseSong.length; i++) {
-      const song = databaseSong[i];
-      const newSong = song.cloneNode(true);
-      newSong.className = "added-song";
-      songLibrary.appendChild(newSong);
-    
-      removeSong(newSong);
-    
-      newSong.addEventListener("click", () => {
-        songTitle.textContent = song.dataset.title;
-        artistName.textContent = `${song.dataset.artist} | ${song.dataset.album}`;
-        albumCover.src = song.dataset.cover;
-        audio.src = song.dataset.source;
-      
-        if (playIcon.className === "fa-solid fa-play") {
-          playIcon.className = "fa-solid fa-pause";
-        }
-      
-        try {
-          audio.load();
-          audio.play();
-        } catch(err) {
-          // Check if the text has already been appended
-          if (!isErrorMessageAppended) {
-            // If it hasn't, create a new element with the content to append
-            let errorMessage = document.createElement("p");
-            errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
-            errorMessage.style.fontSize = "15px";
-            errorMessage.style.fontWeight = "600";
-            errorMessage.style.margin = "20px 0px -20px 35px"
-            backgroundCard.appendChild(errorMessage);
-            // Update the flag to indicate that the text has been appended
-            // This way, the error text will only be appended once no matter how many times the user clicks the song
-            isErrorMessageAppended = true;
-          }
-        }
-      });
-    };
+likeIcon.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    const song = songStorage[index];
+    const likedSong = document.createElement("div");
+    likedSong.className = "liked-song";
+    likedSong.setAttribute("id", song.id)
+    likedSong.textContent = `${song.title} - ${song.artist}`;
+    songLibrary.appendChild(likedSong);
+    console.log(song)
+  })
+})
+
+songLibrary.addEventListener("click", event => {
+  if (event.target.className === "liked-song") {
+    const clickedSongId = parseInt(event.target.getAttribute("id"));
+    const clickedSong = songStorage.find(song => song.id === clickedSongId);
+    if (clickedSong) {
+      songTitle.textContent = clickedSong.title;
+      artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
+      albumCover.src = clickedSong.cover;
+      audio.src = clickedSong.source;
+    }
   }
-});
-*/
+
+  if (playIcon.className === "fa-solid fa-play") {
+    playIcon.className = "fa-solid fa-pause";
+  }
+
+  try {
+    audio.load();
+    audio.play();
+  } catch(err) {
+    // Check if the text has already been appended
+    if (!isErrorMessageAppended) {
+      // If it hasn't, create a new element with the content to append
+      let errorMessage = document.createElement("p");
+      errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
+      errorMessage.style.fontSize = "15px";
+      errorMessage.style.fontWeight = "600";
+      errorMessage.style.margin = "20px 0px -20px 35px"
+      backgroundCard.appendChild(errorMessage);
+      // Update the flag to indicate that the text has been appended
+      // This way, the error text will only be appended once no matter how many times the user clicks the song
+      isErrorMessageAppended = true;
+    }
+  }
+})
 
 console.log(databaseSong);
+console.log(likeIcon);
 
 likeSongWrapper.addEventListener("click", event => {
   if (event.target.className === "fa-regular fa-heart fa-lg") {
@@ -202,64 +249,3 @@ likeSongWrapper.addEventListener("click", event => {
     event.target.className = "fa-regular fa-heart fa-lg";
   }
 });
-
-databaseSong.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    const song = songStorage[index];
-    songTitle.textContent = song.title;
-    artistName.textContent = `${song.artist} | ${song.album}`;
-    albumCover.src = song.cover;
-    audio.src = song.source;
-
-    if (playIcon.className === "fa-solid fa-play") {
-      playIcon.className = "fa-solid fa-pause";
-    }
-
-    audio.load();
-    audio.play();
-  })
-})
-
-// Array of objects representing the songs in the database
-const songStorage = [
-  {
-    title: "Give Life Back to Music",
-    album: "Random Access Memories",
-    artist: "Daft Punk",
-    source: "songs/Daft Punk - Give Life Back to Music.mp3",
-    cover: "images/album-covers/random-access-memories.jpeg",
-    id: 1
-  },
-  {
-    title: "I Feel It Coming",
-    album: "Starboy",
-    artist: "The Weeknd, Daft Punk",
-    source: "songs/The Weeknd - I Feel It Coming.mp3",
-    cover: "images/album-covers/starboy.jpg",
-    id: 2
-  },
-  {
-    title: "The Way I Are",
-    album: "Shock Value",
-    artist: "Timbaland",
-    source: "songs/Timbaland - The Way I Are.mp3",
-    cover: "images/album-covers/shock-value.jpg",
-    id: 3
-  },
-  {
-    title: "Digital Love",
-    album: "Discovery",
-    artist: "Daft Punk",
-    source: "songs/Daft Punk - Digital Love.mp3",
-    cover: "images/album-covers/discovery.png",
-    id: 4
-  },
-  {
-    title: "Safe and Sound",
-    album: "Woman",
-    artist: "Justice",
-    source: "songs/Justice - Safe and Sound.mp3",
-    cover: "images/album-covers/woman.jpeg",
-    id: 5
-  }
-];
