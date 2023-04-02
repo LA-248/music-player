@@ -221,23 +221,16 @@
   gap: 15px;
 }
 
+.liked-song:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0173E5;
+}
+
 .song {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.added-song {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.added-song:hover {
-  cursor: pointer;
-  text-decoration: underline;
-  color: #0173E5;
 }
 
 /* The Modal (background) */
@@ -323,4 +316,8 @@
   padding: 0;
   margin-top: 0px;
   gap: 25px;
+}
+
+.like-icon {
+  color: #0173E5;
 }
