@@ -17,13 +17,15 @@ const songLibrary = document.querySelector(".song-library");
 const songDatabase = document.querySelector(".song-database");
 const songContent = document.querySelector(".song-content");
 
-const databaseSong = document.querySelectorAll(".song");
+const databaseSongs = document.querySelectorAll(".song");
 
 const songDatabaseModal = document.getElementById("song-database-modal");
 const exploreSongsButton = document.getElementById("explore-songs");
 const closeIcon = document.getElementsByClassName("close")[0];
 
-const likeIcon = document.querySelectorAll(".like-icon");
+const likeIcons = document.querySelectorAll(".like-icon");
+const likeSongWrapper = document.querySelector(".like-song-wrapper");
+const likedSongs = document.querySelectorAll(".liked-song");
 
 const removeSongButton = document.getElementById("remove-song");
 
@@ -96,7 +98,42 @@ function changePlayButtonClass() {
   }
 }
 
-function playSong() {
+function playSong(event) {
+  if (event.target.className === "liked-song") {
+    const clickedSongId = parseInt(event.target.getAttribute("id"));
+    const clickedSong = songStorage.find(song => song.id === clickedSongId);
+    if (clickedSong) {
+      songTitle.textContent = clickedSong.title;
+      artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
+      albumCover.src = clickedSong.cover;
+      audio.src = clickedSong.source;
+    }
+    if (playIcon.className === "fa-solid fa-play") {
+      playIcon.className = "fa-solid fa-pause";
+    }
+  
+    try {
+      audio.load();
+      audio.play();
+    } catch(err) {
+      // Check if the text has already been appended
+      if (!isErrorMessageAppended) {
+        // If it hasn't, create a new element with the content to append
+        let errorMessage = document.createElement("p");
+        errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
+        errorMessage.style.fontSize = "15px";
+        errorMessage.style.fontWeight = "600";
+        errorMessage.style.margin = "20px 0px -20px 35px"
+        backgroundCard.appendChild(errorMessage);
+        // Update the flag to indicate that the text has been appended
+        // This way, the error text will only be appended once no matter how many times the user clicks the song
+        isErrorMessageAppended = true;
+      }
+    }
+  }
+}
+
+function resumeSong() {
   changePlayButtonClass();
   // incrementPlayCounter();
   if (playIcon.className === "fa-solid fa-play") {
@@ -109,8 +146,17 @@ function playSong() {
 function changeSong() {
 }
 
-function addSong() {
+function addSong(index) {
+  const song = songStorage[index];
+  const likedSong = document.createElement("div");
+  likedSong.className = "liked-song";
+  likedSong.setAttribute("id", song.id)
+  likedSong.textContent = `${song.title} - ${song.artist}`;
+  songLibrary.appendChild(likedSong);
+  removeSong(likedSong);
 }
+
+const songArray = Array.from(songLibrary);
 
 function removeSong(song) {
   likeSongWrapper.addEventListener("click", function removeSongHandler(event) {
@@ -118,7 +164,6 @@ function removeSong(song) {
       try {
         songLibrary.removeChild(song);
         console.log(songLibrary);
-        console.log(song);
       } catch (error) {
         console.error('Error removing song:', error);
       }
@@ -126,7 +171,6 @@ function removeSong(song) {
     }
   });
 }
-
 
 function nextSong() {
 }
@@ -149,7 +193,7 @@ function currentSong() {
 }
 
 // Add click event listeners to the play/pause, previous, and next buttons
-playButton.addEventListener("click", playSong);
+playButton.addEventListener("click", resumeSong);
 
 prevButton.addEventListener("click", prevSong);
 
@@ -197,59 +241,19 @@ window.onload = () => {
 // Set a flag to keep track of whether the text has been appended or not
 let isErrorMessageAppended = false;
 
-const likeSongWrapper = document.querySelector(".like-song-wrapper");
-
-likeIcon.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    const song = songStorage[index];
-    const likedSong = document.createElement("div");
-    likedSong.className = "liked-song";
-    likedSong.setAttribute("id", song.id)
-    likedSong.textContent = `${song.title} - ${song.artist}`;
-    songLibrary.appendChild(likedSong);
-    console.log(song)
-    removeSong(likedSong);
+likeIcons.forEach((icon, index) => {
+  icon.addEventListener("click", () => {
+    addSong(index);
   })
 })
 
 songLibrary.addEventListener("click", event => {
-  if (event.target.className === "liked-song") {
-    const clickedSongId = parseInt(event.target.getAttribute("id"));
-    const clickedSong = songStorage.find(song => song.id === clickedSongId);
-    if (clickedSong) {
-      songTitle.textContent = clickedSong.title;
-      artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
-      albumCover.src = clickedSong.cover;
-      audio.src = clickedSong.source;
-    }
-  }
-
-  if (playIcon.className === "fa-solid fa-play") {
-    playIcon.className = "fa-solid fa-pause";
-  }
-
-  try {
-    audio.load();
-    audio.play();
-  } catch(err) {
-    // Check if the text has already been appended
-    if (!isErrorMessageAppended) {
-      // If it hasn't, create a new element with the content to append
-      let errorMessage = document.createElement("p");
-      errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
-      errorMessage.style.fontSize = "15px";
-      errorMessage.style.fontWeight = "600";
-      errorMessage.style.margin = "20px 0px -20px 35px"
-      backgroundCard.appendChild(errorMessage);
-      // Update the flag to indicate that the text has been appended
-      // This way, the error text will only be appended once no matter how many times the user clicks the song
-      isErrorMessageAppended = true;
-    }
-  }
+  playSong(event);
 })
 
-console.log(databaseSong);
-console.log(likeIcon);
+console.log(databaseSongs);
+console.log(likeIcons);
+console.log(songArray)
 
 likeSongWrapper.addEventListener("click", event => {
   if (event.target.className === "fa-regular fa-heart fa-lg") {
