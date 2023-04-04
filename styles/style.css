@@ -264,12 +264,6 @@
   background-color: #031424;
 }
 
-.song {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -294,6 +288,8 @@
   border: 1px solid #888;
   border-radius: 15px;
   width: 800px; /* Could be more or less, depending on screen size */
+  max-height: 600px;
+  overflow: auto;
 }
 
 /* The Close Button */
@@ -336,24 +332,14 @@
   padding: 0;
   font-size: 14px;
   text-decoration: none;
-  gap: 40px;
+  gap: 25px;
   margin-top: 0px;
 }
 
-.song-content {
+.song {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.add-song-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 0;
-  margin-top: 0px;
-  gap: 25px;
 }
 
 .add-button {
