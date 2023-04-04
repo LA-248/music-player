@@ -18,16 +18,14 @@ const songDatabase = document.querySelector(".song-database");
 const songContent = document.querySelector(".song-content");
 
 const databaseSongs = document.querySelectorAll(".song");
-
-const songDatabaseModal = document.getElementById("song-database-modal");
-const exploreSongsButton = document.getElementById("explore-songs");
-const closeIcon = document.getElementsByClassName("close")[0];
-
-const likeIcons = document.querySelectorAll(".like-icon");
-const likeSongWrapper = document.querySelector(".like-song-wrapper");
 const likedSongs = document.querySelectorAll(".liked-song");
 
-const removeSongButton = document.getElementById("remove-song");
+const addButtons = document.querySelectorAll(".add-button");
+const addSongWrapper = document.querySelector(".add-song-wrapper");
+const removeButtons = document.querySelectorAll(".remove-button");
+
+let isErrorMessageAppended = false;
+let hasRunOnce = false;
 
 // Array of objects representing the songs in the database
 const songStorage = [
@@ -108,12 +106,13 @@ function playSong(event) {
       albumCover.src = clickedSong.cover;
       audio.src = clickedSong.source;
     }
+
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
     }
   
     try {
-      audio.load();
+      audio.load(dsadas);
       audio.play();
     } catch(err) {
       // Check if the text has already been appended
@@ -123,7 +122,7 @@ function playSong(event) {
         errorMessage.textContent = "Unable to play song. Please check your internet connection and retry.";
         errorMessage.style.fontSize = "15px";
         errorMessage.style.fontWeight = "600";
-        errorMessage.style.margin = "20px 0px -20px 35px"
+        errorMessage.style.margin = "20px 0px -20px 0px"
         backgroundCard.appendChild(errorMessage);
         // Update the flag to indicate that the text has been appended
         // This way, the error text will only be appended once no matter how many times the user clicks the song
@@ -146,28 +145,39 @@ function resumeSong() {
 function changeSong() {
 }
 
+const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
+
 function addSong(index) {
   const song = songStorage[index];
   const likedSong = document.createElement("div");
+  const artistInfo = document.createElement("div");
+  const removeButton = document.createElement("button");
+
+  removeButton.className = "remove-button";
+  removeButton.textContent = "Remove";
   likedSong.className = "liked-song";
   likedSong.setAttribute("id", song.id)
-  likedSong.textContent = `${song.title} - ${song.artist}`;
+  artistInfo.setAttribute("id", song.id)
+  likedSong.textContent = `${song.title}`;
+  artistInfo.textContent = `${song.artist}`;
+  artistInfo.style.color = "gray";
+
   songLibrary.appendChild(likedSong);
-  removeSong(likedSong);
+  likedSong.appendChild(artistInfo);
+  removeButtonWrapper.appendChild(removeButton);
 }
 
 const songArray = Array.from(songLibrary);
 
 function removeSong(song) {
-  likeSongWrapper.addEventListener("click", function removeSongHandler(event) {
+  addSongWrapper.addEventListener("click", function removeSongHandler(event) {
     if (event.target.className === "fa-regular fa-heart fa-lg") {
       try {
         songLibrary.removeChild(song);
-        console.log(songLibrary);
+        addSongWrapper.removeEventListener("click", removeSongHandler);
       } catch (error) {
         console.error('Error removing song:', error);
       }
-      likeSongWrapper.removeEventListener("click", removeSongHandler);
     }
   });
 }
@@ -213,11 +223,14 @@ volumeControl.addEventListener("input", () => {
   audio.volume = volumeControl.value;
 });
 
+const songDatabaseModal = document.getElementById("song-database-modal");
+const exploreSongsButton = document.getElementById("explore-songs");
 // When the user clicks on the button, open the modal
-exploreSongsButton.onclick = () => {
+exploreSongsButton.addEventListener("click", () => {
   songDatabaseModal.style.display = "block";
-}
+});
 
+const closeIcon = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 closeIcon.onclick = () => {
   songDatabaseModal.style.display = "none";
@@ -238,27 +251,19 @@ window.onload = () => {
   audio.src = song[0].source;
 }
 
-// Set a flag to keep track of whether the text has been appended or not
-let isErrorMessageAppended = false;
-
-likeIcons.forEach((icon, index) => {
-  icon.addEventListener("click", () => {
+addButtons.forEach((button, index) => {
+  button.addEventListener("click", function removeSongHandler() {
     addSong(index);
-  })
-})
+    button.style.backgroundColor = "white";
+    button.style.color = "black";
+    button.style.border = "1px solid black";
+    button.textContent = "Added";
+    button.style.width = "80px";
+    button.removeEventListener("click", removeSongHandler);
+    button.style.cursor = "default";
+  });
+});
 
 songLibrary.addEventListener("click", event => {
   playSong(event);
-})
-
-console.log(databaseSongs);
-console.log(likeIcons);
-console.log(songArray)
-
-likeSongWrapper.addEventListener("click", event => {
-  if (event.target.className === "fa-regular fa-heart fa-lg") {
-    event.target.className = "fa-solid fa-heart fa-lg";
-  } else {
-    event.target.className = "fa-regular fa-heart fa-lg";
-  }
 });
