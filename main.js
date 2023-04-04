@@ -18,7 +18,7 @@ const songDatabase = document.querySelector(".song-database");
 const songContent = document.querySelector(".song-content");
 
 const databaseSongs = document.querySelectorAll(".song");
-const likedSongs = document.querySelectorAll(".liked-song");
+const addedSongs = document.querySelectorAll(".added-song");
 
 const addButtons = document.querySelectorAll(".add-button");
 const addSongWrapper = document.querySelector(".add-song-wrapper");
@@ -87,6 +87,7 @@ const songStorage = [
   },
   {
     title: "Music Sounds Better With You",
+    album: "Single",
     artist: "Stardust",
     source: "songs/Stardust - Music Sounds Better With You.mp3",
     cover: "images/album-covers/stardust.png",
@@ -136,7 +137,7 @@ function changePlayButtonClass() {
 }
 
 function playSong(event) {
-  if (event.target.className === "liked-song") {
+  if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info") {
     const clickedSongId = parseInt(event.target.getAttribute("id"));
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
     if (clickedSong) {
@@ -188,22 +189,44 @@ const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
 
 function addSong(index) {
   const song = songStorage[index];
-  const likedSong = document.createElement("div");
+  const addedSong = document.createElement("div");
+  const songContainer = document.createElement("div");
+  const songData = document.createElement("div");
+  const songName = document.createElement("div");
+  const albumImageWrapper = document.createElement("div")
   const artistInfo = document.createElement("div");
+  const albumImage = document.createElement("img");
   const removeButton = document.createElement("button");
 
-  removeButton.className = "remove-button";
-  removeButton.textContent = "Remove";
-  likedSong.className = "liked-song";
-  likedSong.setAttribute("id", song.id)
-  artistInfo.setAttribute("id", song.id)
-  likedSong.textContent = `${song.title}`;
+  addedSong.className = "added-song";
+  addedSong.setAttribute("id", song.id);
+  songContainer.className = "song-container";
+  songData.className = "song-data";
+  songName.setAttribute("id", song.id);
+  songName.textContent = `${song.title}`;
+  songName.className = "song-name";
+  albumImageWrapper.className = "album-image-wrapper";
+  artistInfo.setAttribute("id", song.id);
   artistInfo.textContent = `${song.artist}`;
   artistInfo.style.color = "gray";
+  artistInfo.className = "artist-info";
+  albumImage.setAttribute("id", song.id);
+  albumImage.src = `${song.cover}`;
+  albumImage.style.width = "40px";
+  albumImage.style.height = "auto";
+  albumImage.style.borderRadius = "5px";
+  removeButton.className = "remove-button";
+  removeButton.textContent = "Remove";
 
-  songLibrary.appendChild(likedSong);
-  likedSong.appendChild(artistInfo);
-  removeButtonWrapper.appendChild(removeButton);
+  addedSong.appendChild(songContainer);
+  songContainer.appendChild(albumImageWrapper);
+  songLibrary.appendChild(addedSong);
+  addedSong.appendChild(songName);
+  albumImageWrapper.appendChild(albumImage);
+  songData.appendChild(songName);
+  songData.appendChild(artistInfo);
+  songContainer.appendChild(songData);
+  addedSong.appendChild(removeButton);
 }
 
 const songArray = Array.from(songLibrary);
@@ -303,6 +326,6 @@ addButtons.forEach((button, index) => {
   });
 });
 
-songLibrary.addEventListener("click", event => {
+songLibrary.addEventListener("dblclick", event => {
   playSong(event);
 });
