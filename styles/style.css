@@ -25,7 +25,6 @@
 
 .explore-button {
   display: flex;
-  margin-left: 35px;
 }
 
 #music-search {
@@ -172,22 +171,23 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
-  width: 400px;
+  width: 600px;
   height: 475px;
   background-color: #F2F4F7;
   border-radius: 15px;
 }
 
 #song-library-header {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
+  margin-left: 20px;
+  margin-bottom: 0px;
 }
 
-#song-library-divider {
-  display: flex;
-  border-top: 1px solid #bbb;
-  width: 400px;
+#song-library-subtext {
+  font-size: 14px;
+  margin-left: 20px;
+  color: gray;
 }
 
 #explore-songs {
@@ -208,13 +208,20 @@
   background-color: #031424;
 }
 
+#song-library-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px 0 20px;
+}
+
 .song-library {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   list-style-type: none;
-  text-align: center;
+  text-align: left;
   padding: 0;
   font-size: 14px;
   text-decoration: none;
@@ -225,6 +232,28 @@
   cursor: pointer;
   text-decoration: underline;
   color: #0173E5;
+}
+
+.remove-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin-top: 0px;
+  gap: 25px;
+}
+
+.remove-button {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 20px;
+  width: 80px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 400;
+  margin: 0;
 }
 
 .song {
@@ -299,7 +328,7 @@
   padding: 0;
   font-size: 14px;
   text-decoration: none;
-  gap: 25px;
+  gap: 40px;
   margin-top: 0px;
 }
 
@@ -309,7 +338,7 @@
   align-items: center;
 }
 
-.like-song-wrapper {
+.add-song-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,6 +347,14 @@
   gap: 25px;
 }
 
-.like-icon {
-  color: #0173E5;
+.add-button {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 20px;
+  width: 60px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 400;
 }
