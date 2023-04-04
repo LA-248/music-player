@@ -68,7 +68,46 @@ const songStorage = [
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
     id: 5
-  }
+  },
+  {
+    title: "You Rock My World",
+    album: "Invincible",
+    artist: "Michael Jackson",
+    source: "songs/Michael Jackson - You Rock My World.mp3",
+    cover: "images/album-covers/invincible.jpg",
+    id: 6
+  },
+  {
+    title: "D.A.N.C.E",
+    album: "Justice",
+    artist: "Justice",
+    source: "songs/Justice - D.A.N.C.E..mp3",
+    cover: "images/album-covers/justice.jpg",
+    id: 7
+  },
+  {
+    title: "Music Sounds Better With You",
+    artist: "Stardust",
+    source: "songs/Stardust - Music Sounds Better With You.mp3",
+    cover: "images/album-covers/stardust.png",
+    id: 8
+  },
+  {
+    title: "Take My Breath",
+    album: "Dawn FM",
+    artist: "The Weeknd",
+    source: "songs/The Weeknd - Take My Breath.mp3",
+    cover: "images/album-covers/dawn-fm.png",
+    id: 9
+  },
+  {
+    title: "Da Funk",
+    album: "Homework",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Da Funk.mp3",
+    cover: "images/album-covers/homework.jpg",
+    id: 10
+  },
 ];
 
 // Initialize a counter and retrieve the previous value from local storage
@@ -112,7 +151,7 @@ function playSong(event) {
     }
   
     try {
-      audio.load(dsadas);
+      audio.load();
       audio.play();
     } catch(err) {
       // Check if the text has already been appended
