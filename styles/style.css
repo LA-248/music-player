@@ -185,12 +185,14 @@
   font-weight: 500;
   margin-left: 20px;
   margin-bottom: 0px;
+  padding-left: 10px;
 }
 
 #song-library-subtext {
   font-size: 14px;
   margin-left: 20px;
   color: gray;
+  padding-left: 10px;
 }
 
 #explore-songs {
@@ -212,29 +214,40 @@
 }
 
 #song-library-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 0 20px 0 20px;
 }
 
 .song-library {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   list-style-type: none;
   text-align: left;
   padding: 0;
   font-size: 14px;
   text-decoration: none;
-  gap: 20px;
 }
 
-.liked-song:hover {
-  cursor: pointer;
-  text-decoration: underline;
-  color: #0173E5;
+.added-song {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.added-song:hover {
+  background-color: rgb(233, 233, 233);
+  border-radius: 8px;
+}
+
+.song-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.song-data:hover {
+  cursor: default;
 }
 
 .remove-button-wrapper {
