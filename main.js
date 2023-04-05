@@ -138,8 +138,14 @@ function changePlayButtonClass() {
 
 function playSong(event) {
   if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info") {
+
+    // If the user clicked on a valid song element, we retrieve the song ID from the element's ID attribute and convert it to an integer
     const clickedSongId = parseInt(event.target.getAttribute("id"));
+
+    // Find the song object in our songStorage array that matches the clicked song's ID
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
+
+     // If we found a valid song object with a corresponding ID, we update various elements on the page with the clicked song's information
     if (clickedSong) {
       songTitle.textContent = clickedSong.title;
       artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
@@ -187,8 +193,12 @@ function changeSong() {
 
 const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
 
+// This function takes an index as input and adds a song to the page using information from the songStorage array
+// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info
 function addSong(index) {
+  // Retrieve the song object from the songStorage array using the provided index
   const song = songStorage[index];
+
   const addedSong = document.createElement("div");
   const songContainer = document.createElement("div");
   const songData = document.createElement("div");
@@ -227,6 +237,8 @@ function addSong(index) {
   songData.appendChild(artistInfo);
   songContainer.appendChild(songData);
   addedSong.appendChild(removeButton);
+
+  console.log(index);
 }
 
 const songArray = Array.from(songLibrary);
@@ -315,6 +327,7 @@ window.onload = () => {
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
+    // Call the "addSong" function, passing in the index of the current button that was clicked
     addSong(index);
     button.style.backgroundColor = "white";
     button.style.color = "black";
