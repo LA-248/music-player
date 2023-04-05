@@ -226,6 +226,7 @@ function addSong(index) {
   albumImage.style.height = "auto";
   albumImage.style.borderRadius = "5px";
   removeButton.className = "remove-button";
+  removeButton.setAttribute("id", song.id);
   removeButton.textContent = "Remove";
 
   addedSong.appendChild(songContainer);
@@ -238,22 +239,19 @@ function addSong(index) {
   songContainer.appendChild(songData);
   addedSong.appendChild(removeButton);
 
-  console.log(index);
+  // console.log(index);
 }
 
 const songArray = Array.from(songLibrary);
 
-function removeSong(song) {
-  addSongWrapper.addEventListener("click", function removeSongHandler(event) {
-    if (event.target.className === "fa-regular fa-heart fa-lg") {
-      try {
-        songLibrary.removeChild(song);
-        addSongWrapper.removeEventListener("click", removeSongHandler);
-      } catch (error) {
-        console.error('Error removing song:', error);
-      }
-    }
-  });
+function removeSong(event) {
+  if (event.target.className === "remove-button") {
+    // Get the ID of the parent element (which should be the song to remove)
+    const addedSongId = parseInt(event.target.parentElement.getAttribute("id"));
+    // Find the song element in the DOM by its ID
+    const songToRemove = document.getElementById(addedSongId);
+    songToRemove.remove();
+  }
 }
 
 function nextSong() {
@@ -327,7 +325,7 @@ window.onload = () => {
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
-    // Call the "addSong" function, passing in the index of the current button that was clicked
+    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the current song info to be displayed
     addSong(index);
     button.style.backgroundColor = "white";
     button.style.color = "black";
@@ -341,4 +339,8 @@ addButtons.forEach((button, index) => {
 
 songLibrary.addEventListener("dblclick", event => {
   playSong(event);
+});
+
+songLibrary.addEventListener("click", event => {
+  removeSong(event);
 });
