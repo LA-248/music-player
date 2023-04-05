@@ -239,17 +239,12 @@ function addSong(index) {
   songContainer.appendChild(songData);
   addedSong.appendChild(removeButton);
 
-  // console.log(index);
+  console.log(index);
 }
-
-const songArray = Array.from(songLibrary);
 
 function removeSong(event) {
   if (event.target.className === "remove-button") {
-    // Get the ID of the parent element (which should be the song to remove)
-    const addedSongId = parseInt(event.target.parentElement.getAttribute("id"));
-    // Find the song element in the DOM by its ID
-    const songToRemove = document.getElementById(addedSongId);
+    const songToRemove = event.target.parentElement;
     songToRemove.remove();
   }
 }
@@ -325,7 +320,7 @@ window.onload = () => {
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
-    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the current song info to be displayed
+    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed
     addSong(index);
     button.style.backgroundColor = "white";
     button.style.color = "black";
