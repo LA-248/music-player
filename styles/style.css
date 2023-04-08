@@ -369,5 +369,15 @@
 
 .add-button:hover {
   cursor: pointer;
-  background-color: #031424;
+}
+
+.added-active {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  width: 80px;
+}
+
+.added-active:hover {
+  cursor: default;
 }
