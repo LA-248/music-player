@@ -23,6 +23,7 @@ const addedSongs = document.querySelectorAll(".added-song");
 const addButtons = document.querySelectorAll(".add-button");
 const addSongWrapper = document.querySelector(".add-song-wrapper");
 const removeButtons = document.querySelectorAll(".remove-button");
+const addedActive = document.querySelector(".added-active");
 
 let isErrorMessageAppended = false;
 let hasRunOnce = false;
@@ -246,6 +247,19 @@ function removeSong(event) {
   if (event.target.className === "remove-button") {
     const songToRemove = event.target.parentElement;
     songToRemove.remove();
+
+    const removeButtonId = parseInt(event.target.getAttribute("id"));
+
+    const addButtonsArray = Array.from(addButtons);
+    
+    // Find the button in the array that has the same id as the remove button
+    const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
+
+    // If a button was found with the same id, remove the "added-active" class and change the button text to "Add"
+    if (buttonToChange) {
+      buttonToChange.classList.remove("added-active");
+      buttonToChange.textContent = "Add";
+    }
   }
 }
 
@@ -318,17 +332,15 @@ window.onload = () => {
   audio.src = song[0].source;
 }
 
-addButtons.forEach((button, index) => {
+const addedSongArray = Array.from(addedSongs);
+
+addButtons.forEach((button, index, event) => {
   button.addEventListener("click", function removeSongHandler() {
     // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed
     addSong(index);
-    button.style.backgroundColor = "white";
-    button.style.color = "black";
-    button.style.border = "1px solid black";
+    button.classList.toggle("added-active");
     button.textContent = "Added";
-    button.style.width = "80px";
     button.removeEventListener("click", removeSongHandler);
-    button.style.cursor = "default";
   });
 });
 
