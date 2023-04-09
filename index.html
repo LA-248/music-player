@@ -14,7 +14,7 @@
 <body>
   <div class="main-container">
     <audio id="my-audio">
-      <source id="audioSource" src="" type="audio/mpeg">
+      <source id="audioSource" src="" type="audio/mpeg" loop>
     </audio>
     
     <div class="background-card">
@@ -48,7 +48,6 @@
           </div>
 
           <div class="bar-and-slider">
-            <div id="progress-bar"></div>
             <div class="volume-slider">
               <input type="range" min="0" max="1" step="0.01" value="1" id="volume-control">
             </div>
@@ -83,7 +82,7 @@
               <hr>
             </div>
 
-            <p id="dev-choices">Developer's choices</p>
+            <p id="dev-choices">Current selection</p>
 
             <div class="song-content-wrapper">
               <div class="song-content">
@@ -133,6 +132,11 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="progress-bar">
+        <span id="current-time" class="time">0:00</span>
+        <input type="range" class="slider" max="100" value="0">
+        <span id="duration" class="time">0:00</span>
       </div>
     </div>
   </div>
