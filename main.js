@@ -36,6 +36,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Give Life Back to Music.mp3",
     cover: "images/album-covers/random-access-memories.jpeg",
+    duration: "4:43",
     id: 1
   },
   {
@@ -44,6 +45,7 @@ const songStorage = [
     artist: "The Weeknd, Daft Punk",
     source: "songs/The Weeknd - I Feel It Coming.mp3",
     cover: "images/album-covers/starboy.jpg",
+    duration: "4:57",
     id: 2
   },
   {
@@ -52,6 +54,7 @@ const songStorage = [
     artist: "Timbaland",
     source: "songs/Timbaland - The Way I Are.mp3",
     cover: "images/album-covers/shock-value.jpg",
+    duration: "3:19",
     id: 3
   },
   {
@@ -60,6 +63,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Digital Love.mp3",
     cover: "images/album-covers/discovery.png",
+    duration: "4:25",
     id: 4
   },
   {
@@ -68,6 +72,7 @@ const songStorage = [
     artist: "Justice",
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
+    duration: "5:50",
     id: 5
   },
   {
@@ -76,6 +81,7 @@ const songStorage = [
     artist: "Michael Jackson",
     source: "songs/Michael Jackson - You Rock My World.mp3",
     cover: "images/album-covers/invincible.jpg",
+    duration: "5:37",
     id: 6
   },
   {
@@ -84,6 +90,7 @@ const songStorage = [
     artist: "Justice",
     source: "songs/Justice - D.A.N.C.E..mp3",
     cover: "images/album-covers/justice.jpg",
+    duration: "4:02",
     id: 7
   },
   {
@@ -92,6 +99,7 @@ const songStorage = [
     artist: "Stardust",
     source: "songs/Stardust - Music Sounds Better With You.mp3",
     cover: "images/album-covers/stardust.png",
+    duration: "6:43",
     id: 8
   },
   {
@@ -100,6 +108,7 @@ const songStorage = [
     artist: "The Weeknd",
     source: "songs/The Weeknd - Take My Breath.mp3",
     cover: "images/album-covers/dawn-fm.png",
+    duration: "3:40",
     id: 9
   },
   {
@@ -108,6 +117,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Da Funk.mp3",
     cover: "images/album-covers/homework.jpg",
+    duration: "5:28",
     id: 10
   },
 ];
@@ -189,9 +199,6 @@ function resumeSong() {
   }
 }
 
-function changeSong() {
-}
-
 const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
@@ -249,9 +256,8 @@ function removeSong(event) {
     songToRemove.remove();
 
     const removeButtonId = parseInt(event.target.getAttribute("id"));
-
     const addButtonsArray = Array.from(addButtons);
-    
+
     // Find the button in the array that has the same id as the remove button
     const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
 
