@@ -148,7 +148,7 @@ function changePlayButtonClass() {
 }
 
 function playSong(event) {
-  if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info") {
+  if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info" || event.target.className === "album-image") {
 
     // If the user clicked on a valid song element, we retrieve the song ID from the element's ID attribute and convert it to an integer
     const clickedSongId = parseInt(event.target.getAttribute("id"));
@@ -229,6 +229,7 @@ function addSong(index) {
   artistInfo.style.color = "gray";
   artistInfo.className = "artist-info";
   albumImage.setAttribute("id", song.id);
+  albumImage.className = "album-image";
   albumImage.src = `${song.cover}`;
   albumImage.style.width = "40px";
   albumImage.style.height = "auto";
