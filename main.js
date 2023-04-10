@@ -125,7 +125,7 @@ const currentTime = document.getElementById("current-time");
 const slider = document.querySelector(".slider");
 let raf = null;
 
-
+// This function takes in a number of seconds and returns a formatted string in minutes and seconds
 const calculateTime = (secs) => {
   const minutes = Math.floor(secs / 60);
   const seconds = Math.floor(secs % 60);
@@ -133,20 +133,25 @@ const calculateTime = (secs) => {
   return `${minutes}:${returnedSeconds}`;
 }
 
+// This function updates the display of the audio's duration using the calculateTime function
 const displayDuration = () => {
   duration.textContent = calculateTime(audio.duration);
 }
 
+// This function sets the maximum value of the slider based on the audio's duration
 const setSliderMax = () => {
   slider.max = Math.floor(audio.duration);
 }
 
+// This function updates the slider and current time text while the audio is playing
 const whilePlaying = () => {
   slider.value = Math.floor(audio.currentTime);
   currentTime.textContent = calculateTime(slider.value);
   raf = requestAnimationFrame(whilePlaying);
 }
 
+// If the audio has already loaded, then display the duration and set the slider max
+// Otherwise, wait until the metadata has loaded before displaying the duration and setting the slider max
 if (audio.readyState > 0) {
   displayDuration();
   setSliderMax();
@@ -157,6 +162,8 @@ if (audio.readyState > 0) {
   });
 }
 
+// When the slider is moved, update the current time text
+// If the audio is playing, cancel the animation frame so that it doesn't interfere with the slider
 slider.addEventListener('input', () => {
   currentTime.textContent = calculateTime(slider.value);
   if(!audio.paused) {
@@ -164,12 +171,15 @@ slider.addEventListener('input', () => {
   }
 });
 
+// When the slider is changed (either by moving it or clicking on it), update the audio's current time
+// If the audio is playing, request an animation frame to update the slider and current time text while playing
 slider.addEventListener('change', () => {
   audio.currentTime = slider.value;
   if(!audio.paused) {
     requestAnimationFrame(whilePlaying);
   }
 });
+
 
 // Update the volume as the user adjusts the volume control
 volumeControl.addEventListener("input", () => {
@@ -210,7 +220,7 @@ function playSong(event) {
     // Find the song object in our songStorage array that matches the clicked song's ID
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
 
-     // If we found a valid song object with a corresponding ID to the clicked song, we update various elements on the page with the clicked song's information
+     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
     if (clickedSong) {
       songTitle.textContent = clickedSong.title;
       artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
@@ -256,7 +266,7 @@ function resumeSong() {
 const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
-// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info
+// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop (line 320) to display the correct song info
 function addSong(index) {
   // Retrieve the song object from the songStorage array using the provided index
   const song = songStorage[index];
@@ -309,7 +319,7 @@ const addedSongArray = Array.from(addedSongs);
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
-    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed
+    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed in the song library
     addSong(index);
     button.classList.toggle("added-active");
     button.textContent = "Added";
@@ -384,10 +394,10 @@ window.onclick = event => {
 
 window.onload = () => {
   const song = songStorage[0];
-  songTitle.textContent = song.title;
+  songTitle.textContent = `${song.title}`;
   artistName.textContent = `${song.artist} | ${song.album}`;
-  albumCover.src = song.cover;
-  audio.src = song.source;
+  albumCover.src = `${song.cover}`;
+  audio.src = `${song.source}`;
 }
 
 songLibrary.addEventListener("dblclick", event => {
