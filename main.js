@@ -163,23 +163,18 @@ if (audio.readyState > 0) {
 }
 
 // When the slider is moved, update the current time text
-// If the audio is playing, cancel the animation frame so that it doesn't interfere with the slider
+// If the audio is playing or paused, cancel the animation frame so that it doesn't interfere with the slider
 slider.addEventListener('input', () => {
   currentTime.textContent = calculateTime(slider.value);
-  if(!audio.paused) {
-    cancelAnimationFrame(raf);
-  }
+  cancelAnimationFrame(raf);
 });
 
 // When the slider is changed (either by moving it or clicking on it), update the audio's current time
-// If the audio is playing, request an animation frame to update the slider and current time text while playing
+// If the audio is playing or paused, request an animation frame to update the slider and current time text while playing
 slider.addEventListener('change', () => {
   audio.currentTime = slider.value;
-  if(!audio.paused) {
-    requestAnimationFrame(whilePlaying);
-  }
+  requestAnimationFrame(whilePlaying);
 });
-
 
 // Update the volume as the user adjusts the volume control
 volumeControl.addEventListener("input", () => {
@@ -315,8 +310,6 @@ function addSong(index) {
   console.log(index);
 }
 
-const addedSongArray = Array.from(addedSongs);
-
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
     // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed in the song library
@@ -344,9 +337,6 @@ function removeSong(event) {
       buttonToChange.textContent = "Add";
     }
   }
-}
-
-function nextSong() {
 }
 
 function prevSong() {
