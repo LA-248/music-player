@@ -95,12 +95,20 @@ const songStorage = [
     id: 8
   },
   {
+    title: "Together",
+    album: "Single",
+    artist: "DJ Falcon & Thomas Bangalter",
+    source: "songs/DJ Falcon & Thomas Bangalter - Together.mp3",
+    cover: "images/album-covers/together.webp",
+    id: 9
+  },
+  {
     title: "Take My Breath",
     album: "Dawn FM",
     artist: "The Weeknd",
     source: "songs/The Weeknd - Take My Breath.mp3",
     cover: "images/album-covers/dawn-fm.png",
-    id: 9
+    id: 10
   },
   {
     title: "Da Funk",
@@ -108,15 +116,59 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Da Funk.mp3",
     cover: "images/album-covers/homework.jpg",
-    id: 10
+    id: 11
   },
 ];
 
-// Update the progress bar as the audio plays
-audio.addEventListener("timeupdate", () => {
-  const duration = audio.duration;
-  const currentTime = audio.currentTime;
-  const progress = (currentTime / duration) * 100;
+const duration = document.getElementById("duration");
+const currentTime = document.getElementById("current-time");
+const slider = document.querySelector(".slider");
+let raf = null;
+
+
+const calculateTime = (secs) => {
+  const minutes = Math.floor(secs / 60);
+  const seconds = Math.floor(secs % 60);
+  const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+  return `${minutes}:${returnedSeconds}`;
+}
+
+const displayDuration = () => {
+  duration.textContent = calculateTime(audio.duration);
+}
+
+const setSliderMax = () => {
+  slider.max = Math.floor(audio.duration);
+}
+
+const whilePlaying = () => {
+  slider.value = Math.floor(audio.currentTime);
+  currentTime.textContent = calculateTime(slider.value);
+  raf = requestAnimationFrame(whilePlaying);
+}
+
+if (audio.readyState > 0) {
+  displayDuration();
+  setSliderMax();
+} else { 
+  audio.addEventListener('loadedmetadata', () => {
+    displayDuration();
+    setSliderMax();
+  });
+}
+
+slider.addEventListener('input', () => {
+  currentTime.textContent = calculateTime(slider.value);
+  if(!audio.paused) {
+    cancelAnimationFrame(raf);
+  }
+});
+
+slider.addEventListener('change', () => {
+  audio.currentTime = slider.value;
+  if(!audio.paused) {
+    requestAnimationFrame(whilePlaying);
+  }
 });
 
 // Update the volume as the user adjusts the volume control
@@ -158,7 +210,7 @@ function playSong(event) {
     // Find the song object in our songStorage array that matches the clicked song's ID
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
 
-     // If we found a valid song object with a corresponding ID, we update various elements on the page with the clicked song's information
+     // If we found a valid song object with a corresponding ID to the clicked song, we update various elements on the page with the clicked song's information
     if (clickedSong) {
       songTitle.textContent = clickedSong.title;
       artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
@@ -253,6 +305,18 @@ function addSong(index) {
   console.log(index);
 }
 
+const addedSongArray = Array.from(addedSongs);
+
+addButtons.forEach((button, index) => {
+  button.addEventListener("click", function removeSongHandler() {
+    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed
+    addSong(index);
+    button.classList.toggle("added-active");
+    button.textContent = "Added";
+    button.removeEventListener("click", removeSongHandler);
+  });
+});
+
 function removeSong(event) {
   if (event.target.className === "remove-button") {
     const songToRemove = event.target.parentElement;
@@ -285,8 +349,6 @@ function prevSong() {
     // If the audio is paused, simply reset it to the beginning but do not start playing it automatically
     audio.load();
   }
-  // Reset the progress bar when the song is restarted
-  progressBar.style.width = 0;
 }
 
 function currentSong() {
@@ -321,24 +383,12 @@ window.onclick = event => {
 }
 
 window.onload = () => {
-  const song = songStorage;
-  songTitle.textContent = song[0].title;
-  artistName.textContent = `${song[0].artist} | ${song[0].album}`;
-  albumCover.src = song[0].cover;
-  audio.src = song[0].source;
+  const song = songStorage[0];
+  songTitle.textContent = song.title;
+  artistName.textContent = `${song.artist} | ${song.album}`;
+  albumCover.src = song.cover;
+  audio.src = song.source;
 }
-
-const addedSongArray = Array.from(addedSongs);
-
-addButtons.forEach((button, index, event) => {
-  button.addEventListener("click", function removeSongHandler() {
-    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed
-    addSong(index);
-    button.classList.toggle("added-active");
-    button.textContent = "Added";
-    button.removeEventListener("click", removeSongHandler);
-  });
-});
 
 songLibrary.addEventListener("dblclick", event => {
   playSong(event);
