@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   width: 1000px;
   height: 650px;
   background-color: #e5e5eb;
@@ -25,6 +25,24 @@
 
 .explore-button {
   display: flex;
+}
+
+#explore-songs {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 40px;
+  width: 150px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+#explore-songs:hover {
+  cursor: pointer;
+  background-color: #031424;
 }
 
 #music-search {
@@ -52,7 +70,7 @@
 .left-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 450px;
   height: 475px;
@@ -78,6 +96,7 @@
   margin-bottom: -10px;
   font-size: 14px;
   font-weight: 500;
+  margin-top: 0px;
 }
 
 #artist-name {
@@ -86,50 +105,11 @@
   white-space: nowrap;
 }
 
-.all-controls {
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.playback-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.prev-button {
-  text-decoration: none;
-  font-size: 14px;
-  border-radius: 999px;
-  width: 35px;
-  height: 35px;
-  background-color: #0173E5;
-  color: white;
-  border: none;
-  font-weight: 400;
-}
-
-.play-button {
+.view-button {
   text-decoration: none;
   font-size: 14px;
   border-radius: 40px;
-  width: 80px;
-  height: 35px;
-  background-color: black;
-  color: white;
-  border: none;
-  font-weight: 400;
-}
-
-.next-button {
-  text-decoration: none;
-  font-size: 14px;
-  border-radius: 999px;
-  width: 35px;
+  width: 50%;
   height: 35px;
   background-color: #0173E5;
   color: white;
@@ -137,44 +117,12 @@
   font-weight: 400;
 }
 
-.prev-button:hover {
+.view-button:hover {
   cursor: pointer;
-  background-color: #0479ef;
-}
-
-.play-button:hover {
-  cursor: pointer;
-  background-color: #031424;
-}
-
-.next-button:hover {
-  cursor: pointer;
-  background-color: #0479ef;
-}
-
-.bar-and-slider {
-  margin-top: 20px;
-}
-
-.progress-bar {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  gap: 5px;
-  margin-top: 30px;
-}
-
-.time {
-  font-size: 14px;
-}
-
-.slider {
-  width: 50%;
 }
 
 #play-count {
   font-size: 14px;
-  margin-top: 15px;
 }
 
 .right-card {
@@ -201,24 +149,6 @@
   margin-left: 20px;
   color: gray;
   padding-left: 10px;
-}
-
-#explore-songs {
-  text-decoration: none;
-  font-size: 14px;
-  border-radius: 40px;
-  width: 150px;
-  height: 40px;
-  background-color: black;
-  color: white;
-  border: none;
-  font-weight: 400;
-  margin-bottom: 20px;
-}
-
-#explore-songs:hover {
-  cursor: pointer;
-  background-color: #031424;
 }
 
 #song-library-wrapper {
@@ -388,4 +318,105 @@
 
 .added-active:hover {
   cursor: default;
+}
+
+.all-media-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.playback-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.prev-button {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 999px;
+  width: 35px;
+  height: 35px;
+  background-color: #0173E5;
+  color: white;
+  border: none;
+  font-weight: 400;
+}
+
+.play-button {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 40px;
+  width: 80px;
+  height: 35px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 400;
+}
+
+.next-button {
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 999px;
+  width: 35px;
+  height: 35px;
+  background-color: #0173E5;
+  color: white;
+  border: none;
+  font-weight: 400;
+}
+
+.prev-button:hover {
+  cursor: pointer;
+  background-color: #0479ef;
+}
+
+.play-button:hover {
+  cursor: pointer;
+  background-color: #031424;
+}
+
+.next-button:hover {
+  cursor: pointer;
+  background-color: #0479ef;
+}
+
+.bar-and-slider {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.progress-and-volume-sliders {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.time {
+  font-size: 14px;
+}
+
+.slider-container {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+}
+
+.volume-slider {
+  margin-top: 10px;
 }
