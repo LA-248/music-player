@@ -126,7 +126,7 @@ const slider = document.querySelector(".slider");
 let raf = null;
 
 // This function takes in a number of seconds and returns a formatted string in minutes and seconds
-const calculateTime = (secs) => {
+function calculateTime(secs) {
   const minutes = Math.floor(secs / 60);
   const seconds = Math.floor(secs % 60);
   const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
@@ -134,17 +134,17 @@ const calculateTime = (secs) => {
 }
 
 // This function updates the display of the audio's duration using the calculateTime function
-const displayDuration = () => {
+function displayDuration() {
   duration.textContent = calculateTime(audio.duration);
 }
 
 // This function sets the maximum value of the slider based on the audio's duration
-const setSliderMax = () => {
+function setSliderMax() {
   slider.max = Math.floor(audio.duration);
 }
 
 // This function updates the slider and current time text while the audio is playing
-const whilePlaying = () => {
+function whilePlaying() {
   slider.value = Math.floor(audio.currentTime);
   currentTime.textContent = calculateTime(slider.value);
   raf = requestAnimationFrame(whilePlaying);
