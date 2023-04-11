@@ -226,6 +226,8 @@ function playSong(event) {
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
     }
+
+    requestAnimationFrame(whilePlaying);
   
     try {
       audio.load();
@@ -255,6 +257,7 @@ function resumeSong() {
     audio.pause()
   } else {
     audio.play();
+    requestAnimationFrame(whilePlaying);
   }
 }
 
