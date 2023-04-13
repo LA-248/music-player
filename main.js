@@ -181,6 +181,17 @@ volumeControl.addEventListener("input", () => {
   audio.volume = volumeControl.value;
 });
 
+const rewind = document.querySelector(".rewind");
+const fastForward = document.querySelector(".fast-forward");
+
+rewind.addEventListener("click", () => {
+  audio.currentTime -= 15;
+});
+
+fastForward.addEventListener("click", () => {
+  audio.currentTime += 15;
+});
+
 // Initialize a counter and retrieve the previous value from local storage
 let counter = 0;
 const storedCounter = localStorage.getItem("playCount");
