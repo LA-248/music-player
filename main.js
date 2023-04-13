@@ -206,6 +206,16 @@ function changePlayButtonClass() {
   }
 }
 
+function displayClickedSong(song) {
+  // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
+  if (song) {
+    songTitle.textContent = `${song.title}`;
+    artistName.textContent = `${song.artist} | ${song.album}`;
+    albumCover.src = `${song.cover}`;
+    audio.src = `${song.source}`;
+  }
+}
+
 function playSong(event) {
   if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info" || event.target.className === "album-image") {
 
@@ -215,13 +225,8 @@ function playSong(event) {
     // Find the song object in our songStorage array that matches the clicked song's ID
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
 
-     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
-    if (clickedSong) {
-      songTitle.textContent = clickedSong.title;
-      artistName.textContent = `${clickedSong.artist} | ${clickedSong.album}`;
-      albumCover.src = clickedSong.cover;
-      audio.src = clickedSong.source;
-    }
+    // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
+    displayClickedSong(clickedSong);
 
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
@@ -261,7 +266,7 @@ function resumeSong() {
   }
 }
 
-const removeButtonWrapper = document.querySelector(".remove-button-wrapper");
+const songLibraryArray = [];
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
 // This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop (line 320) to display the correct song info
@@ -310,8 +315,14 @@ function addSong(index) {
   songContainer.appendChild(songData);
   addedSong.appendChild(removeButton);
 
+  songLibraryArray.push(songName.textContent, artistInfo.textContent, `${song.id}`);
+  console.log(songLibraryArray);
+
   console.log(index);
 }
+
+// songLibraryArray.push(songName.textContent, artistInfo.textContent, albumImage.src);
+// localStorage.setItem("songs", JSON.stringify(songLibraryArray));
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
@@ -322,6 +333,7 @@ addButtons.forEach((button, index) => {
     button.removeEventListener("click", removeSongHandler);
   });
 });
+
 
 function removeSong(event) {
   if (event.target.className === "remove-button") {
@@ -339,8 +351,18 @@ function removeSong(event) {
       buttonToChange.classList.remove("added-active");
       buttonToChange.textContent = "Add";
     }
+
+    if (songLibraryArray.includes(removeButtonId.toString())) {
+      songLibraryArray.pop();
+    }
   }
 }
+
+function nextSong() {
+}
+
+audio.addEventListener("ended", () => {
+});
 
 function prevSong() {
   // If the audio is currently playing, reset the audio and automatically start playing it + update the counter
