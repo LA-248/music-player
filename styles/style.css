@@ -335,6 +335,44 @@
   gap: 10px;
 }
 
+.rewind {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 999px;
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-weight: 400;
+  gap: 5px;
+}
+
+.fast-forward {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 999px;
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-weight: 400;
+  gap: 5px;
+}
+
+.rewind:hover {
+  cursor: pointer;
+}
+
+.fast-forward {
+  cursor: pointer;
+}
+
 .prev-button {
   text-decoration: none;
   font-size: 14px;
