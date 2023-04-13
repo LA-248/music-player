@@ -192,6 +192,20 @@ fastForward.addEventListener("click", () => {
   audio.currentTime += 15;
 });
 
+const loop = document.getElementById("loop");
+
+function enableRepeat() {
+  if (audio.loop === false) {
+    audio.loop = true;
+    loop.style.color = "#0173e5";
+  } else {
+    audio.loop = false;
+    loop.style.color = "black";
+  }
+}
+
+loop.addEventListener("click", enableRepeat);
+
 // Initialize a counter and retrieve the previous value from local storage
 let counter = 0;
 const storedCounter = localStorage.getItem("playCount");
