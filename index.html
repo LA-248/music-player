@@ -13,10 +13,7 @@
 
 <body>
   <div class="main-container">
-    <audio id="my-audio" preload=”metadata”>
-      <source id="audioSource" src="" type="audio/mpeg">
-    </audio>
-    
+    <audio id="my-audio" preload=”metadata”></audio>
     <div class="background-card">
       <div class="explore-button">
         <button id="explore-songs">Explore songs</button>
@@ -122,6 +119,7 @@
       </div>
       <div class="all-media-controls">
         <div class="playback-buttons">
+          <i class="fa-solid fa-shuffle"></i>
           <button class="rewind">15<i class="fa-solid fa-rotate-left"></i></button>
           <button class="prev-button">
             <i class="fa-solid fa-backward"></i>
@@ -133,6 +131,7 @@
             <i class="fa-solid fa-forward"></i>
           </button>
           <button class="fast-forward"><i class="fa-solid fa-rotate-right"></i>15</button>
+          <i id="loop" class="fa-solid fa-repeat"></i>
         </div>
       </div>
 
