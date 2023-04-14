@@ -332,7 +332,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .rewind {
@@ -369,7 +369,11 @@
   cursor: pointer;
 }
 
-.fast-forward {
+.fast-forward:hover {
+  cursor: pointer;
+}
+
+#loop:hover {
   cursor: pointer;
 }
 
