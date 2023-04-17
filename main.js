@@ -232,7 +232,6 @@ function changePlayButtonClass() {
 }
 
 function displayClickedSong(song) {
-  // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
   if (song) {
     songTitle.textContent = `${song.title}`;
     artistName.textContent = `${song.artist} | ${song.album}`;
@@ -291,14 +290,7 @@ function resumeSong() {
   }
 }
 
-const songLibraryArray = [];
-
-// This function takes an index as input and adds a song to the page using information from the songStorage array
-// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop (line 320) to display the correct song info
-function addSong(index) {
-  // Retrieve the song object from the songStorage array using the provided index
-  const song = songStorage[index];
-
+function addSongToUI(song) {
   const addedSong = document.createElement("div");
   const songContainer = document.createElement("div");
   const songData = document.createElement("div");
@@ -339,15 +331,36 @@ function addSong(index) {
   songData.appendChild(artistInfo);
   songContainer.appendChild(songData);
   addedSong.appendChild(removeButton);
-
-  songLibraryArray.push(songName.textContent, artistInfo.textContent, `${song.id}`);
-  console.log(songLibraryArray);
-
-  console.log(index);
 }
 
-// songLibraryArray.push(songName.textContent, artistInfo.textContent, albumImage.src);
-// localStorage.setItem("songs", JSON.stringify(songLibraryArray));
+const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
+
+// This function takes an index as input and adds a song to the page using information from the songStorage array
+// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
+function addSong(index) {
+  // Retrieve the song object from the songStorage array using the provided index
+  const song = songStorage[index];
+
+  addSongToUI(song);
+
+  savedSongs.push({
+    title: song.title,
+    artist: song.artist,
+    cover: song.cover,
+    id: song.id,
+  });
+
+  localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
+  console.log(index);
+  console.log(savedSongs);
+}
+
+console.log(savedSongs);
+
+// Add saved songs to the UI
+savedSongs.forEach((song) => {
+  addSongToUI(song);
+});
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", function removeSongHandler() {
@@ -359,7 +372,6 @@ addButtons.forEach((button, index) => {
   });
 });
 
-
 function removeSong(event) {
   if (event.target.className === "remove-button") {
     const songToRemove = event.target.parentElement;
@@ -368,18 +380,23 @@ function removeSong(event) {
     const removeButtonId = parseInt(event.target.getAttribute("id"));
     const addButtonsArray = Array.from(addButtons);
 
-    // Find the button in the array that has the same id as the remove button
+    // Find the "add" button that has the same ID as the clicked remove button
     const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
 
-    // If a button was found with the same id, remove the "added-active" class and change the button text to "Add"
+    // Find the index of the song to remove in the 'savedSongs' array
+    const indexToDelete = savedSongs.findIndex(song => parseInt(song.id) === removeButtonId);
+    console.log(indexToDelete);
+
+    // If an "add" button with the same ID was found, remove the "added-active" class and change the button text to "Add"
     if (buttonToChange) {
       buttonToChange.classList.remove("added-active");
       buttonToChange.textContent = "Add";
     }
 
-    if (songLibraryArray.includes(removeButtonId.toString())) {
-      songLibraryArray.pop();
-    }
+    savedSongs.splice(indexToDelete, 1);
+    localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
+    
+    console.log(savedSongs);
   }
 }
 
