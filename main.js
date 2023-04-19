@@ -239,7 +239,7 @@ function changePlayButtonClass() {
   }
 }
 
-function displayClickedSong(song) {
+function displaySong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
     artistName.textContent = `${song.artist} | ${song.album}`;
@@ -258,7 +258,7 @@ function playSong(event) {
     const clickedSong = songStorage.find(song => song.id === clickedSongId);
 
     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
-    displayClickedSong(clickedSong);
+    displaySong(clickedSong);
 
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
@@ -356,7 +356,9 @@ function addSong(index) {
   savedSongs.push({
     title: song.title,
     artist: song.artist,
+    album: song.album,
     cover: song.cover,
+    source: song.source,
     id: song.id,
   });
 
@@ -462,11 +464,13 @@ window.onclick = event => {
 }
 
 window.onload = () => {
-  const song = songStorage[0];
-  songTitle.textContent = `${song.title}`;
-  artistName.textContent = `${song.artist} | ${song.album}`;
-  albumCover.src = `${song.cover}`;
-  audio.src = `${song.source}`;
+  if (savedSongs.length === 0) {
+    const song = songStorage[0];
+    displaySong(song);
+  } else {
+    const song = savedSongs[0];
+    displaySong(song);
+  }
 }
 
 songLibrary.addEventListener("dblclick", event => {
