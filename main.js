@@ -118,6 +118,14 @@ const songStorage = [
     cover: "images/album-covers/homework.jpg",
     id: 11
   },
+  {
+    title: "Pjanoo",
+    album: "Pjanoo",
+    artist: "Eric Prydz",
+    source: "songs/Eric Prydz - Pjanoo.mp3",
+    cover: "images/album-covers/pjanoo.jpeg",
+    id: 12
+  }
 ];
 
 const duration = document.getElementById("duration");
@@ -333,6 +341,7 @@ function addSongToUI(song) {
   addedSong.appendChild(removeButton);
 }
 
+// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
 const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
@@ -343,6 +352,7 @@ function addSong(index) {
 
   addSongToUI(song);
 
+  // Add the song object to the savedSongs array, along with some additional properties
   savedSongs.push({
     title: song.title,
     artist: song.artist,
@@ -350,7 +360,9 @@ function addSong(index) {
     id: song.id,
   });
 
+  // Store the updated savedSongs array in the browser's local storage as a JSON string
   localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
+
   console.log(index);
   console.log(savedSongs);
 }
@@ -373,7 +385,7 @@ addButtons.forEach((button, index) => {
 });
 
 function removeSong(event) {
-  if (event.target.className === "remove-button") {
+  if (event.target.className === "remove-button") { 
     const songToRemove = event.target.parentElement;
     songToRemove.remove();
 
@@ -383,17 +395,20 @@ function removeSong(event) {
     // Find the "add" button that has the same ID as the clicked remove button
     const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
 
-    // Find the index of the song to remove in the 'savedSongs' array
-    const indexToDelete = savedSongs.findIndex(song => parseInt(song.id) === removeButtonId);
-    console.log(indexToDelete);
-
     // If an "add" button with the same ID was found, remove the "added-active" class and change the button text to "Add"
     if (buttonToChange) {
       buttonToChange.classList.remove("added-active");
       buttonToChange.textContent = "Add";
     }
 
+    // Find the index of the song to remove in the 'savedSongs' array
+    const indexToDelete = savedSongs.findIndex(song => parseInt(song.id) === removeButtonId);
+    console.log(indexToDelete);
+
+    // Remove the song from the savedSongs array using the splice() method
     savedSongs.splice(indexToDelete, 1);
+
+    // Save the updated savedSongs array to localStorage as a string
     localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
     
     console.log(savedSongs);
@@ -425,9 +440,6 @@ function currentSong() {
 playButton.addEventListener("click", resumeSong);
 
 prevButton.addEventListener("click", prevSong);
-
-nextButton.addEventListener("click", () => {
-});
 
 const songDatabaseModal = document.getElementById("song-database-modal");
 const exploreSongsButton = document.getElementById("explore-songs");
