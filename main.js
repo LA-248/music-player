@@ -265,7 +265,7 @@ function playSong(event) {
     }
 
     requestAnimationFrame(whilePlaying);
-  
+
     try {
       audio.load();
       audio.play();
@@ -386,13 +386,14 @@ addButtons.forEach((button, index) => {
   });
 });
 
+const addButtonsArray = Array.from(addButtons);
+
 function removeSong(event) {
   if (event.target.className === "remove-button") { 
     const songToRemove = event.target.parentElement;
     songToRemove.remove();
 
     const removeButtonId = parseInt(event.target.getAttribute("id"));
-    const addButtonsArray = Array.from(addButtons);
 
     // Find the "add" button that has the same ID as the clicked remove button
     const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
@@ -480,3 +481,17 @@ songLibrary.addEventListener("dblclick", event => {
 songLibrary.addEventListener("click", event => {
   removeSong(event);
 });
+
+const databaseSongsArray = Array.from(databaseSongs)
+console.log(databaseSongsArray);
+
+for (let i = 0; i < savedSongs.length; i++ ) {
+  const savedSongId = savedSongs[i].id;
+
+  const matchingButton = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === savedSongId);
+
+  if (matchingButton) {
+    matchingButton.textContent = "Added"
+    matchingButton.classList.toggle("added-active");
+  }
+}
