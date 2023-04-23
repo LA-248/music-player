@@ -12,6 +12,8 @@ const playCount = document.getElementById("play-count");
 const songInfo = document.querySelector(".song-info");
 const songTitle = document.getElementById("song-title");
 const artistName = document.getElementById("artist-name");
+const artistTitle = document.getElementById("artist-title");
+const artistPicture = document.getElementById("artist-picture");
 const albumCover = document.getElementById("album-cover");
 const songLibrary = document.querySelector(".song-library");
 const songDatabase = document.querySelector(".song-database");
@@ -36,6 +38,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Give Life Back to Music.mp3",
     cover: "images/album-covers/random-access-memories.jpeg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
     id: 1
   },
   {
@@ -44,6 +47,7 @@ const songStorage = [
     artist: "The Weeknd, Daft Punk",
     source: "songs/The Weeknd - I Feel It Coming.mp3",
     cover: "images/album-covers/starboy.jpg",
+    picture: "images/artist-pictures/the-weeknd.jpeg",
     id: 2
   },
   {
@@ -52,6 +56,7 @@ const songStorage = [
     artist: "Timbaland",
     source: "songs/Timbaland - The Way I Are.mp3",
     cover: "images/album-covers/shock-value.jpg",
+    picture: "images/artist-pictures/timbaland.jpeg",
     id: 3
   },
   {
@@ -60,6 +65,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Digital Love.mp3",
     cover: "images/album-covers/discovery.png",
+    picture: "images/artist-pictures/daft-punk.jpeg",
     id: 4
   },
   {
@@ -68,6 +74,7 @@ const songStorage = [
     artist: "Justice",
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
+    picture: "images/artist-pictures/justice.jpeg",
     id: 5
   },
   {
@@ -76,6 +83,7 @@ const songStorage = [
     artist: "Michael Jackson",
     source: "songs/Michael Jackson - You Rock My World.mp3",
     cover: "images/album-covers/invincible.jpg",
+    picture: "images/artist-pictures/michael-jackson.jpeg",
     id: 6
   },
   {
@@ -84,6 +92,7 @@ const songStorage = [
     artist: "Justice",
     source: "songs/Justice - D.A.N.C.E..mp3",
     cover: "images/album-covers/justice.jpg",
+    picture: "images/artist-pictures/justice.jpeg",
     id: 7
   },
   {
@@ -92,6 +101,7 @@ const songStorage = [
     artist: "Stardust",
     source: "songs/Stardust - Music Sounds Better With You.mp3",
     cover: "images/album-covers/stardust.png",
+    picture: "images/artist-pictures/stardust.jpeg",
     id: 8
   },
   {
@@ -100,6 +110,7 @@ const songStorage = [
     artist: "DJ Falcon & Thomas Bangalter",
     source: "songs/DJ Falcon & Thomas Bangalter - Together.mp3",
     cover: "images/album-covers/together.webp",
+    picture: "images/artist-pictures/together.jpg",
     id: 9
   },
   {
@@ -108,6 +119,7 @@ const songStorage = [
     artist: "The Weeknd",
     source: "songs/The Weeknd - Take My Breath.mp3",
     cover: "images/album-covers/dawn-fm.png",
+    picture: "images/artist-pictures/the-weeknd.jpeg",
     id: 10
   },
   {
@@ -116,6 +128,7 @@ const songStorage = [
     artist: "Daft Punk",
     source: "songs/Daft Punk - Da Funk.mp3",
     cover: "images/album-covers/homework.jpg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
     id: 11
   },
   {
@@ -124,7 +137,16 @@ const songStorage = [
     artist: "Eric Prydz",
     source: "songs/Eric Prydz - Pjanoo.mp3",
     cover: "images/album-covers/pjanoo.jpeg",
+    picture: "images/artist-pictures/eric-prydz.jpeg",
     id: 12
+  }
+];
+
+const artists = [
+  {
+    name: "",
+    picture: "",
+    id: "",
   }
 ];
 
@@ -214,6 +236,7 @@ function enableRepeat() {
 
 loop.addEventListener("click", enableRepeat);
 
+/*
 // Initialize a counter and retrieve the previous value from local storage
 let counter = 0;
 const storedCounter = localStorage.getItem("playCount");
@@ -230,6 +253,7 @@ function incrementPlayCounter() {
     playCount.textContent = "Number of plays: " + counter.toString();
   }
 }
+*/
 
 function changePlayButtonClass() {
   if (playIcon.className === "fa-solid fa-play") {
@@ -245,6 +269,9 @@ function displaySong(song) {
     artistName.textContent = `${song.artist} | ${song.album}`;
     albumCover.src = `${song.cover}`;
     audio.src = `${song.source}`;
+
+    artistTitle.textContent = `${song.artist}`;
+    artistPicture.src = `${song.picture}`;
   }
 }
 
@@ -359,6 +386,7 @@ function addSong(index) {
     album: song.album,
     cover: song.cover,
     source: song.source,
+    picture: song.picture,
     id: song.id,
   });
 
