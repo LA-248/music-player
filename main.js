@@ -39,6 +39,7 @@ const songStorage = [
     source: "songs/Daft Punk - Give Life Back to Music.mp3",
     cover: "images/album-covers/random-access-memories.jpeg",
     picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
     id: 1
   },
   {
@@ -48,6 +49,7 @@ const songStorage = [
     source: "songs/The Weeknd - I Feel It Coming.mp3",
     cover: "images/album-covers/starboy.jpg",
     picture: "images/artist-pictures/the-weeknd.jpeg",
+    streams: 0,
     id: 2
   },
   {
@@ -57,6 +59,7 @@ const songStorage = [
     source: "songs/Timbaland - The Way I Are.mp3",
     cover: "images/album-covers/shock-value.jpg",
     picture: "images/artist-pictures/timbaland.jpeg",
+    streams: 0,
     id: 3
   },
   {
@@ -66,6 +69,7 @@ const songStorage = [
     source: "songs/Daft Punk - Digital Love.mp3",
     cover: "images/album-covers/discovery.png",
     picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
     id: 4
   },
   {
@@ -75,6 +79,7 @@ const songStorage = [
     source: "songs/Justice - Safe and Sound.mp3",
     cover: "images/album-covers/woman.jpeg",
     picture: "images/artist-pictures/justice.jpeg",
+    streams: 0,
     id: 5
   },
   {
@@ -84,6 +89,7 @@ const songStorage = [
     source: "songs/Michael Jackson - You Rock My World.mp3",
     cover: "images/album-covers/invincible.jpg",
     picture: "images/artist-pictures/michael-jackson.jpeg",
+    streams: 0,
     id: 6
   },
   {
@@ -93,6 +99,7 @@ const songStorage = [
     source: "songs/Justice - D.A.N.C.E..mp3",
     cover: "images/album-covers/justice.jpg",
     picture: "images/artist-pictures/justice.jpeg",
+    streams: 0,
     id: 7
   },
   {
@@ -102,6 +109,7 @@ const songStorage = [
     source: "songs/Stardust - Music Sounds Better With You.mp3",
     cover: "images/album-covers/stardust.png",
     picture: "images/artist-pictures/stardust.jpeg",
+    streams: 0,
     id: 8
   },
   {
@@ -111,6 +119,7 @@ const songStorage = [
     source: "songs/DJ Falcon & Thomas Bangalter - Together.mp3",
     cover: "images/album-covers/together.webp",
     picture: "images/artist-pictures/together.jpg",
+    streams: 0,
     id: 9
   },
   {
@@ -120,6 +129,7 @@ const songStorage = [
     source: "songs/The Weeknd - Take My Breath.mp3",
     cover: "images/album-covers/dawn-fm.png",
     picture: "images/artist-pictures/the-weeknd.jpeg",
+    streams: 0,
     id: 10
   },
   {
@@ -129,6 +139,7 @@ const songStorage = [
     source: "songs/Daft Punk - Da Funk.mp3",
     cover: "images/album-covers/homework.jpg",
     picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
     id: 11
   },
   {
@@ -138,15 +149,28 @@ const songStorage = [
     source: "songs/Eric Prydz - Pjanoo.mp3",
     cover: "images/album-covers/pjanoo.jpeg",
     picture: "images/artist-pictures/eric-prydz.jpeg",
+    streams: 0,
     id: 12
-  }
-];
-
-const artists = [
+  },
   {
-    name: "",
-    picture: "",
-    id: "",
+    title: "Yo Voy (feat. Daddy Yankee)",
+    album: "Motivando a la Yal",
+    artist: "Zion & Lennox",
+    source: "songs/Yo Voy (feat. Daddy Yankee) - Zion & Lennox.mp3",
+    cover: "images/album-covers/motivando-a-la-yal.jpeg",
+    picture: "images/artist-pictures/zion-and-lennox.jpeg",
+    streams: 0,
+    id: 13
+  },
+  {
+    title: "Television Rules the Nation & Crescendolls",
+    album: "Alive 2007",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Television Rules the Nation & Crescendolls.mp3",
+    cover: "images/album-covers/alive-2007.jpeg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
+    id: 14
   }
 ];
 
@@ -236,25 +260,6 @@ function enableRepeat() {
 
 loop.addEventListener("click", enableRepeat);
 
-/*
-// Initialize a counter and retrieve the previous value from local storage
-let counter = 0;
-const storedCounter = localStorage.getItem("playCount");
-if (storedCounter) {
-  counter = Number(storedCounter);
-  playCount.textContent = "Number of plays: " + counter.toString();
-}
-
-// A function to increment the play counter and update the value displayed to the user
-function incrementPlayCounter() {
-  if (audio.currentTime === 0) {
-    counter++;
-    localStorage.setItem("playCount", Number(counter));
-    playCount.textContent = "Number of plays: " + counter.toString();
-  }
-}
-*/
-
 function changePlayButtonClass() {
   if (playIcon.className === "fa-solid fa-play") {
     playIcon.className = "fa-solid fa-pause";
@@ -263,7 +268,44 @@ function changePlayButtonClass() {
   }
 }
 
-function displaySong(song) {
+/*
+// Initialize a counter and retrieve the previous value from local storage
+let counter = songStorage.streams;
+const storedCounter = localStorage.getItem("playCount");
+if (storedCounter) {
+  counter = Number(storedCounter);
+  // playCount.textContent = "Number of plays: " + counter.toString();
+}
+
+// A function to increment the play counter and update the value displayed to the user
+function incrementPlayCounter() {
+  if (audio.currentTime === 0) {
+    counter++;
+    localStorage.setItem("playCount", songStorage.streams);
+    playCount.textContent = "Number of plays: " + counter.toString();
+  }
+}
+*/
+
+// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
+const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
+
+function displayClickedSong(song) {
+  if (song) {
+    songTitle.textContent = `${song.title}`;
+    artistName.textContent = `${song.artist} | ${song.album}`;
+    albumCover.src = `${song.cover}`;
+    audio.src = `${song.source}`;
+
+    artistTitle.textContent = `${song.artist}`;
+    artistPicture.src = `${song.picture}`;
+
+    song.streams += 1;
+    localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
+  }
+}
+
+function loadSong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
     artistName.textContent = `${song.artist} | ${song.album}`;
@@ -282,10 +324,10 @@ function playSong(event) {
     const clickedSongId = parseInt(event.target.getAttribute("id"));
 
     // Find the song object in our songStorage array that matches the clicked song's ID
-    const clickedSong = songStorage.find(song => song.id === clickedSongId);
+    const clickedSong = savedSongs.find(song => song.id === clickedSongId);
 
     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
-    displaySong(clickedSong);
+    displayClickedSong(clickedSong);
 
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
@@ -368,9 +410,6 @@ function addSongToUI(song) {
   addedSong.appendChild(removeButton);
 }
 
-// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
-const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
-
 // This function takes an index as input and adds a song to the page using information from the songStorage array
 // This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
 function addSong(index) {
@@ -387,6 +426,7 @@ function addSong(index) {
     cover: song.cover,
     source: song.source,
     picture: song.picture,
+    streams: song.streams,
     id: song.id,
   });
 
@@ -495,10 +535,10 @@ window.onclick = event => {
 window.onload = () => {
   if (savedSongs.length === 0) {
     const song = songStorage[0];
-    displaySong(song);
+    loadSong(song);
   } else {
     const song = savedSongs[0];
-    displaySong(song);
+    loadSong(song);
   }
 }
 
