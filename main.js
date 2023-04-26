@@ -557,6 +557,7 @@ function search() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
   const info = document.querySelectorAll(".info");
 
+  // Loop through each song in the database
   for (let i = 0; i < info.length; i++) {
     let match = databaseSongs[i].querySelectorAll(".info")[0];
 
