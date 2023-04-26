@@ -23,7 +23,7 @@
   padding: 40px;
 }
 
-.explore-button {
+.explore-button-wrapper {
   display: flex;
 }
 
@@ -49,14 +49,14 @@
   display: flex;
   padding: 20px;
   margin: 0px 0px 20px 0px;
-  font-size: 14px;
-  border-radius: 8px;
+  font-size: 13px;
+  border-radius: 25px;
   width: 275px;
-  height: 35px;
+  height: 40px;
   background-color: #F2F4F7;
   color: white;
   border: none;
-  font-weight: 500;
+  font-weight: 400;
   color: black;
 }
 
@@ -102,7 +102,6 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 0px;
-  white-space: nowrap;
 }
 
 #artist-name {
@@ -220,9 +219,9 @@
 
 .remove-button {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 20px;
-  width: 80px;
+  width: 75px;
   height: 30px;
   background-color: black;
   color: white;
@@ -284,6 +283,7 @@
   font-size: 14px;
   font-weight: 400;
   margin-top: -10px;
+  color: gray;
 }
 
 #dev-choices {
@@ -476,5 +476,7 @@
 }
 
 .volume-slider {
+  display: flex;
   margin-top: 10px;
+  gap: 8px;
 }
