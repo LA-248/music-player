@@ -268,25 +268,6 @@ function changePlayButtonClass() {
   }
 }
 
-/*
-// Initialize a counter and retrieve the previous value from local storage
-let counter = songStorage.streams;
-const storedCounter = localStorage.getItem("playCount");
-if (storedCounter) {
-  counter = Number(storedCounter);
-  // playCount.textContent = "Number of plays: " + counter.toString();
-}
-
-// A function to increment the play counter and update the value displayed to the user
-function incrementPlayCounter() {
-  if (audio.currentTime === 0) {
-    counter++;
-    localStorage.setItem("playCount", songStorage.streams);
-    playCount.textContent = "Number of plays: " + counter.toString();
-  }
-}
-*/
-
 // Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
 const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
@@ -561,5 +542,25 @@ for (let i = 0; i < savedSongs.length; i++ ) {
   if (matchingButton) {
     matchingButton.textContent = "Added"
     matchingButton.classList.toggle("added-active");
+  }
+}
+
+// This function searches for a given song in the song database and filters out those that do not match the search term
+function search() {
+  const searchBar = document.getElementById("music-search").value.toUpperCase();
+  const title = document.querySelectorAll(".title");
+
+  for (let i = 0; i < title.length; i++) {
+    let match = databaseSongs[i].querySelectorAll(".title")[0];
+
+    if (match) {
+      let textValue = match.textContent || match.innerHTML;
+
+      if (textValue.toUpperCase().indexOf(searchBar) > -1) {
+        databaseSongs[i].style.display = "";
+      } else {
+        databaseSongs[i].style.display = "none";
+      }
+    }
   }
 }
