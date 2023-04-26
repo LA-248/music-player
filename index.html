@@ -15,7 +15,7 @@
   <div class="main-container">
     <audio id="my-audio" preload=”metadata”></audio>
     <div class="background-card">
-      <div class="button-wrapper">
+      <div class="explore-button-wrapper">
         <button id="explore-songs">Explore songs</button>
       </div>
 
@@ -42,10 +42,10 @@
         
         <div class="right-card">
           <p id="song-library-header">Song Library</p>
-          <p id="song-library-subtext">All songs that you add will appear here</p>
+          <p id="song-library-subtext"></p>
 
           <div id="song-library-wrapper">
-            <div class="song-library">
+            <div class="song-library" id="song-library">
             </div>
           </div>
         </div>
@@ -56,25 +56,12 @@
           <div class="modal-content">
             <span class="close">&times;</span>
             <h1>Explore Songs</h1>
-            <p class="database-header">Add songs to your library with a simple search</p>
+            <p class="database-header">Add songs to your library</p>
 
-            <div class="search-bar">
+            <div class="search-bar" id="search-bar">
               <label for="music-search"></label>
-              <input type="search" id="music-search" name="music-search" placeholder="Search for a song" autocomplete="off">
+              <input type="search" id="music-search" name="music-search" placeholder="Search for a song" onkeyup="search()">
             </div>
-
-            <!--
-            <div class="search-bar">
-              <label for="music-search"></label>
-              <input type="search" id="music-search" name="music-search" placeholder="Search for a song">
-            </div>
-            -->
-
-            <div class="divider">
-              <hr>
-            </div>
-
-            <p id="dev-choices">Current selection</p>
 
             <div class="song-content-wrapper">
               <div class="song-content">
@@ -167,8 +154,8 @@
           </div>
           <span id="duration" class="time">0:00</span>
         </div>
-        <div><i class="fa-regular fa-volume"></i></div>
         <div class="volume-slider">
+          <i class="fa-solid fa-chart-simple"></i>
           <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume-control">
         </div>
       </div>
