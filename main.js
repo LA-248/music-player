@@ -545,6 +545,13 @@ for (let i = 0; i < savedSongs.length; i++ ) {
   }
 }
 
+const songLibrarySubtext = document.getElementById("song-library-subtext");
+if (savedSongs.length === 0) {
+  songLibrarySubtext.textContent = "Click the explore songs button to add music to your library";
+} else {
+  songLibrarySubtext.textContent = "All songs that you add will appear here";
+}
+
 // This function searches for a given song in the song database and filters out those that do not match the search term
 function search() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
