@@ -163,7 +163,7 @@ const songStorage = [
     id: 13
   },
   {
-    title: "Television Rules the Nation & Crescendolls",
+    title: "Television Rules the Nation / Crescendolls",
     album: "Alive 2007",
     artist: "Daft Punk",
     source: "songs/Daft Punk - Television Rules the Nation & Crescendolls.mp3",
@@ -555,10 +555,10 @@ if (savedSongs.length === 0) {
 // This function searches for a given song in the song database and filters out those that do not match the search term
 function search() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
-  const title = document.querySelectorAll(".title");
+  const info = document.querySelectorAll(".info");
 
-  for (let i = 0; i < title.length; i++) {
-    let match = databaseSongs[i].querySelectorAll(".title")[0];
+  for (let i = 0; i < info.length; i++) {
+    let match = databaseSongs[i].querySelectorAll(".info")[0];
 
     if (match) {
       let textValue = match.textContent || match.innerHTML;
