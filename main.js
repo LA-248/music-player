@@ -310,6 +310,34 @@ function playSong(event) {
     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
     displayClickedSong(clickedSong);
 
+    // Find the index of the song that was clicked
+    const clickedSongIndex = savedSongs.findIndex(song => song.id === clickedSongId);
+
+    let currentSongIndex = clickedSongIndex;
+
+    nextButton.addEventListener("click", () => {
+      // Increment currentSongIndex and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
+      // currentSongIndex = Math.floor(Math.random(currentSongIndex) * savedSongs.length) % savedSongs.length;
+      currentSongIndex = (currentSongIndex + 1) % savedSongs.length;
+
+      songTitle.textContent = `${savedSongs[currentSongIndex].title}`;
+      artistName.textContent = `${savedSongs[currentSongIndex].artist} | ${savedSongs[currentSongIndex].album}`;
+      albumCover.src = `${savedSongs[currentSongIndex].cover}`;
+      audio.src = `${savedSongs[currentSongIndex].source}`;
+  
+      artistTitle.textContent = savedSongs[currentSongIndex].artist;
+      artistPicture.src = savedSongs[currentSongIndex].picture;
+  
+      if (playIcon.className === "fa-solid fa-play") {
+        playIcon.className = "fa-solid fa-pause";
+      }
+      
+      audio.play();
+    });
+
+    audio.addEventListener("ended", () => {
+    });
+
     if (playIcon.className === "fa-solid fa-play") {
       playIcon.className = "fa-solid fa-pause";
     }
@@ -334,17 +362,6 @@ function playSong(event) {
         isErrorMessageAppended = true;
       }
     }
-  }
-}
-
-function resumeSong() {
-  changePlayButtonClass();
-  // incrementPlayCounter();
-  if (playIcon.className === "fa-solid fa-play") {
-    audio.pause()
-  } else {
-    audio.play();
-    requestAnimationFrame(whilePlaying);
   }
 }
 
@@ -470,18 +487,24 @@ function removeSong(event) {
 function nextSong() {
 }
 
-audio.addEventListener("ended", () => {
-});
-
 function prevSong() {
   // If the audio is currently playing, reset the audio and automatically start playing it + update the counter
   if (audio.paused === false) {
     audio.load();
     audio.play();
-    incrementPlayCounter();
   } else {
     // If the audio is paused, simply reset it to the beginning but do not start playing it automatically
     audio.load();
+  }
+}
+
+function resumeSong() {
+  changePlayButtonClass();
+  if (playIcon.className === "fa-solid fa-play") {
+    audio.pause()
+  } else {
+    audio.play();
+    requestAnimationFrame(whilePlaying);
   }
 }
 
