@@ -15,6 +15,7 @@ const artistName = document.getElementById("artist-name");
 const artistTitle = document.getElementById("artist-title");
 const artistPicture = document.getElementById("artist-picture");
 const albumCover = document.getElementById("album-cover");
+const streams = document.querySelector(".streams");
 const songLibrary = document.querySelector(".song-library");
 const songDatabase = document.querySelector(".song-database");
 const songContent = document.querySelector(".song-content");
@@ -171,6 +172,16 @@ const songStorage = [
     picture: "images/artist-pictures/daft-punk.jpeg",
     streams: 0,
     id: 14
+  },
+  {
+    title: "Get Lucky (feat. Pharrell Williams and Nile Rodgers)",
+    album: "Random Access Memories",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Get Lucky (feat. Pharrell Williams and Nile Rodgers).mp3",
+    cover: "images/album-covers/random-access-memories.jpeg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
+    id: 15
   }
 ];
 
@@ -268,6 +279,12 @@ function changePlayButtonClass() {
   }
 }
 
+function changePlaybackIcon() {
+  if (playIcon.className === "fa-solid fa-play") {
+    playIcon.className = "fa-solid fa-pause";
+  }
+}
+
 // Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
 const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
@@ -328,9 +345,7 @@ function playSong(event) {
       artistTitle.textContent = savedSongs[currentSongIndex].artist;
       artistPicture.src = savedSongs[currentSongIndex].picture;
   
-      if (playIcon.className === "fa-solid fa-play") {
-        playIcon.className = "fa-solid fa-pause";
-      }
+      changePlaybackIcon();
       
       audio.play();
     });
@@ -338,9 +353,7 @@ function playSong(event) {
     audio.addEventListener("ended", () => {
     });
 
-    if (playIcon.className === "fa-solid fa-play") {
-      playIcon.className = "fa-solid fa-pause";
-    }
+    changePlaybackIcon();
 
     requestAnimationFrame(whilePlaying);
 
@@ -506,9 +519,6 @@ function resumeSong() {
     audio.play();
     requestAnimationFrame(whilePlaying);
   }
-}
-
-function currentSong() {
 }
 
 // Add click event listeners to the play/pause, previous, and next buttons
