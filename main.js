@@ -263,9 +263,11 @@ function enableRepeat() {
   if (audio.loop === false) {
     audio.loop = true;
     loop.style.color = "#0173e5";
+    loop.title = "Disable loop";
   } else {
     audio.loop = false;
     loop.style.color = "black";
+    loop.title = "Enable loop";
   }
 }
 
