@@ -455,13 +455,23 @@ savedSongs.forEach((song) => {
   addSongToUI(song);
 });
 
+const buttonIDs = JSON.parse(localStorage.getItem("buttonIDs")) || [];
+
 addButtons.forEach((button, index) => {
-  button.addEventListener("click", function removeSongHandler() {
-    // Call the "addSong" function, passing in the index of the current button that was clicked, allowing for the correct song info to be displayed in the song library
-    addSong(index);
-    button.classList.toggle("added-active");
-    button.textContent = "Added";
-    button.removeEventListener("click", removeSongHandler);
+  button.addEventListener("click", () => {
+    // Check if the ID of the add button already exists in the buttonIDs array
+    if (buttonIDs.includes(parseInt(button.id))) {
+      return; // If it does, do nothing
+    } else {
+      // If it doesn't, add the song to the user's library and update the button
+      addSong(index);
+      button.classList.toggle("added-active");
+      button.textContent = "Added";
+      
+      // Store the updated array of button IDs in local storage
+      buttonIDs.push(parseInt(button.id));
+      localStorage.setItem("buttonIDs", JSON.stringify(buttonIDs));
+    }
   });
 });
 
@@ -492,12 +502,15 @@ function removeSong(event) {
 
     // Save the updated savedSongs array to localStorage as a string
     localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
+
+    // Remove the ID from the buttonIDs array using the splice() method
+    buttonIDs.splice(indexToDelete, 1);
+    
+    // Store the updated array of button IDs in local storage
+    localStorage.setItem("buttonIDs", JSON.stringify(buttonIDs));
     
     console.log(savedSongs);
   }
-}
-
-function nextSong() {
 }
 
 function prevSong() {
