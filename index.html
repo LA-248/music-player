@@ -58,7 +58,7 @@
 
             <div class="search-bar" id="search-bar">
               <label for="music-search"></label>
-              <input type="search" id="music-search" name="music-search" placeholder="Search for a song" onkeyup="search()">
+              <input type="search" id="music-search" name="music-search" placeholder="Search for a song" onkeyup="searchDatabaseSongs()">
             </div>
 
             <div class="song-content-wrapper">
@@ -222,7 +222,7 @@
       </div>
       <div class="all-media-controls">
         <div class="playback-buttons">
-          <i id="shuffle" class="fa-solid fa-shuffle"></i>
+          <i id="shuffle" class="fa-solid fa-shuffle" title="Enable shuffle" data-state="false"></i>
           <button class="rewind">15<i class="fa-solid fa-rotate-left"></i></button>
           <button class="prev-button">
             <i class="fa-solid fa-backward"></i>
