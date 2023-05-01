@@ -258,8 +258,9 @@ fastForward.addEventListener("click", () => {
 });
 
 const loop = document.getElementById("loop");
+const shuffle = document.getElementById("shuffle");
 
-function enableRepeat() {
+function toggleLoop() {
   if (audio.loop === false) {
     audio.loop = true;
     loop.style.color = "#0173e5";
@@ -271,7 +272,19 @@ function enableRepeat() {
   }
 }
 
-loop.addEventListener("click", enableRepeat);
+function toggleShuffle() {
+  if (shuffle.dataset.state === "false") {
+    shuffle.dataset.state = "true";
+    shuffle.style.color = "#0173e5";
+  } else if (shuffle.dataset.state === "true") {
+    shuffle.dataset.state = "false";
+    shuffle.style.color = "black";
+  }
+}
+
+loop.addEventListener("click", toggleLoop);
+
+shuffle.addEventListener("click", toggleShuffle);
 
 function changePlayButtonClass() {
   if (playIcon.className === "fa-solid fa-play") {
@@ -317,6 +330,32 @@ function loadSong(song) {
   }
 }
 
+function skipToNextSong(index) {
+  // Increment index and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
+  if (shuffle.dataset.state === "true") {
+    index = Math.floor(Math.random(index) * savedSongs.length) % savedSongs.length;
+  } else if (shuffle.dataset.state === "false") {
+    index = (index + 1) % savedSongs.length;
+  }
+  
+  songTitle.textContent = `${savedSongs[index].title}`;
+  artistName.textContent = `${savedSongs[index].artist} | ${savedSongs[index].album}`;
+  albumCover.src = `${savedSongs[index].cover}`;
+  
+  // Pause the audio before changing the source
+  audio.pause();
+  audio.src = `${savedSongs[index].source}`;
+  
+  // Wait for the new audio to load before playing it
+  audio.addEventListener('loadedmetadata', function() {
+    audio.play();
+  });
+  
+  artistTitle.textContent = savedSongs[index].artist;
+  artistPicture.src = savedSongs[index].picture;
+}
+
+
 function playSong(event) {
   if (event.target.className === "added-song" || event.target.className === "song-name" || event.target.className === "artist-info" || event.target.className === "album-image") {
 
@@ -335,24 +374,32 @@ function playSong(event) {
     let currentSongIndex = clickedSongIndex;
 
     nextButton.addEventListener("click", () => {
-      // Increment currentSongIndex and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
-      // currentSongIndex = Math.floor(Math.random(currentSongIndex) * savedSongs.length) % savedSongs.length;
-      currentSongIndex = (currentSongIndex + 1) % savedSongs.length;
-
+      // Increment index and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
+      if (shuffle.dataset.state === "true") {
+        currentSongIndex = Math.floor(Math.random(currentSongIndex) * savedSongs.length) % savedSongs.length;
+      } else if (shuffle.dataset.state === "false") {
+        currentSongIndex = (currentSongIndex + 1) % savedSongs.length;
+      }
+  
       songTitle.textContent = `${savedSongs[currentSongIndex].title}`;
       artistName.textContent = `${savedSongs[currentSongIndex].artist} | ${savedSongs[currentSongIndex].album}`;
       albumCover.src = `${savedSongs[currentSongIndex].cover}`;
+  
+      // Pause the audio before changing the source
+      audio.pause();
       audio.src = `${savedSongs[currentSongIndex].source}`;
+  
+      // Wait for the new audio to load before playing it
+      audio.addEventListener('loadedmetadata', function() {
+        audio.play();
+      });
   
       artistTitle.textContent = savedSongs[currentSongIndex].artist;
       artistPicture.src = savedSongs[currentSongIndex].picture;
-  
-      changePlaybackIcon();
-      
-      audio.play();
     });
 
     audio.addEventListener("ended", () => {
+      skipToNextSong(currentSongIndex);
     });
 
     changePlaybackIcon();
@@ -601,7 +648,7 @@ if (savedSongs.length === 0) {
 }
 
 // This function searches for a given song in the song database and filters out those that do not match the search term
-function search() {
+function searchDatabaseSongs() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
   const info = document.querySelectorAll(".info");
 
