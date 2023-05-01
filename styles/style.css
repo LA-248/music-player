@@ -60,6 +60,12 @@
   color: black;
 }
 
+#current-selection {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 0;
+}
+
 .card-wrapper {
   display: flex;
   justify-content: center;
