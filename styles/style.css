@@ -121,6 +121,12 @@
   gap: 8px;
 }
 
+#artist-picture {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+}
+
 #artist-title {
   font-size: 14px;
   font-weight: 500;
@@ -132,18 +138,6 @@
   cursor: pointer;
   text-decoration: underline;
 }
-
-#artist-picture {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-}
-
-/*
-#play-count {
-  font-size: 14px;
-}
-*/
 
 .right-card {
   display: flex;
