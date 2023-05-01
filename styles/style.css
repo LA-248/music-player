@@ -286,10 +286,6 @@
   color: gray;
 }
 
-#dev-choices {
-  font-weight: 600;
-}
-
 .song-database {
   display: flex;
   flex-direction: column;
