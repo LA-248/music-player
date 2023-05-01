@@ -474,7 +474,7 @@ function addSongToUI(song) {
 }
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
-// This index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
+// The index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
 function addSong(index) {
   // Retrieve the song object from the songStorage array using the provided index
   const song = songStorage[index];
