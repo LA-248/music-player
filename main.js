@@ -398,6 +398,7 @@ function playSong(event) {
       artistPicture.src = savedSongs[currentSongIndex].picture;
     });
 
+    // Skip to the next song once the current song has ended
     audio.addEventListener("ended", () => {
       skipToNextSong(currentSongIndex);
     });
