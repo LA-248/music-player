@@ -276,9 +276,11 @@ function toggleShuffle() {
   if (shuffle.dataset.state === "false") {
     shuffle.dataset.state = "true";
     shuffle.style.color = "#0173e5";
+    shuffle.title = "Disable shuffle";
   } else if (shuffle.dataset.state === "true") {
     shuffle.dataset.state = "false";
     shuffle.style.color = "black";
+    shuffle.title = "Enable shuffle";
   }
 }
 
@@ -648,6 +650,8 @@ if (savedSongs.length === 0) {
   songLibrarySubtext.textContent = "All songs that you add will appear here";
 }
 
+const currentSelection = document.getElementById("current-selection");
+
 // This function searches for a given song in the song database and filters out those that do not match the search term
 function searchDatabaseSongs() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
@@ -662,8 +666,13 @@ function searchDatabaseSongs() {
 
       if (textValue.toUpperCase().indexOf(searchBar) > -1) {
         databaseSongs[i].style.display = "";
+        currentSelection.textContent = "Results";
       } else {
         databaseSongs[i].style.display = "none";
+        currentSelection.textContent = "Results";
+      }
+      if (searchBar === "") {
+        currentSelection.textContent = "Current selection";
       }
     }
   }
