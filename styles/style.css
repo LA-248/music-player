@@ -3,6 +3,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+body {
+  background-color: #1d1d1d;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -18,8 +22,8 @@
   align-items: stretch;
   width: 1000px;
   height: 650px;
-  background-color: #e5e5eb;
-  border-radius: 15px;
+  background-color: black;
+  border-radius: 20px;
   padding: 40px;
 }
 
@@ -33,7 +37,7 @@
   border-radius: 40px;
   width: 150px;
   height: 40px;
-  background-color: black;
+  background-color: #0173E5;
   color: white;
   border: none;
   font-weight: 400;
@@ -42,7 +46,7 @@
 
 #explore-songs:hover {
   cursor: pointer;
-  background-color: #031424;
+  background-color: #0479ef;
 }
 
 #music-search {
@@ -53,16 +57,16 @@
   border-radius: 25px;
   width: 275px;
   height: 40px;
-  background-color: #F2F4F7;
+  background-color: #303030;
   color: white;
   border: none;
   font-weight: 400;
-  color: black;
 }
 
 #current-selection {
   font-size: 16px;
   font-weight: 500;
+  color: white;
   margin-top: 0;
 }
 
@@ -80,7 +84,7 @@
   align-items: center;
   width: 450px;
   height: 475px;
-  background-color: #F2F4F7;
+  background-color: #1d1d1d;
   border-radius: 15px;
   padding: 40px;
   overflow: hidden;
@@ -108,12 +112,14 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 0px;
+  color: white;
 }
 
 #artist-name {
   font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
+  color: white;
 }
 
 .divider {
@@ -138,6 +144,7 @@
   font-weight: 500;
   white-space: nowrap;
   margin: 0px;
+  color: white;
 }
 
 #artist-title:hover {
@@ -151,7 +158,7 @@
   justify-content: start;
   width: 100%;
   height: 475px;
-  background-color: #F2F4F7;
+  background-color: #1d1d1d;
   border-radius: 15px;
   overflow: auto;
 }
@@ -162,12 +169,13 @@
   margin-left: 20px;
   margin-bottom: 0px;
   padding-left: 10px;
+  color: white;
 }
 
 #song-library-subtext {
   font-size: 14px;
   margin-left: 20px;
-  color: gray;
+  color: white;
   padding-left: 10px;
 }
 
@@ -193,7 +201,7 @@
 }
 
 .added-song:hover {
-  background-color: rgb(233, 233, 233);
+  background-color: rgb(54, 53, 53);
   border-radius: 8px;
 }
 
@@ -223,7 +231,7 @@
   border-radius: 20px;
   width: 75px;
   height: 30px;
-  background-color: black;
+  background-color: #0173E5;
   color: white;
   border: none;
   font-weight: 400;
@@ -232,7 +240,7 @@
 
 .remove-button:hover {
   cursor: pointer;
-  background-color: #031424;
+  background-color: #0479ef;
 }
 
 /* The Modal (background) */
@@ -253,10 +261,9 @@
 .modal-content {
   display: flex;
   flex-direction: column;
-  background-color: #fefefe;
+  background-color: #1d1d1d;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 30px;
-  border: 1px solid #888;
   border-radius: 15px;
   width: 800px; /* Could be more or less, depending on screen size */
   max-height: 600px;
@@ -280,10 +287,14 @@
 }
 
 .database-header {
+  color: white;
+}
+
+.database-subtext {
   font-size: 14px;
   font-weight: 400;
   margin-top: -10px;
-  color: gray;
+  color: white;
 }
 
 .song-database {
@@ -319,8 +330,13 @@
   align-items: flex-start;
 }
 
+.title {
+  color: white;
+}
+
 .artist {
-  color: gray;
+  font-size: 12px;
+  color: white;
 }
 
 .add-button {
@@ -329,8 +345,8 @@
   border-radius: 20px;
   width: 60px;
   height: 30px;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   border: none;
   font-weight: 400;
 }
@@ -340,9 +356,9 @@
 }
 
 .added-active {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
   width: 80px;
 }
 
@@ -374,7 +390,7 @@
   width: 35px;
   height: 35px;
   background-color: transparent;
-  color: black;
+  color: white;
   border: none;
   font-weight: 400;
   gap: 5px;
@@ -389,7 +405,7 @@
   width: 35px;
   height: 35px;
   background-color: transparent;
-  color: black;
+  color: white;
   border: none;
   font-weight: 400;
   gap: 5px;
@@ -403,8 +419,16 @@
   cursor: pointer;
 }
 
+#loop {
+  color: white;
+}
+
 #loop:hover {
   cursor: pointer;
+}
+
+#shuffle {
+  color: white;
 }
 
 #shuffle:hover {
@@ -417,10 +441,14 @@
   border-radius: 999px;
   width: 35px;
   height: 35px;
-  background-color: #0173E5;
+  background-color: white;
   color: white;
   border: none;
   font-weight: 400;
+}
+
+#prev-icon {
+  color: black;
 }
 
 .play-button {
@@ -429,7 +457,7 @@
   border-radius: 40px;
   width: 80px;
   height: 35px;
-  background-color: black;
+  background-color: #0173E5;
   color: white;
   border: none;
   font-weight: 400;
@@ -441,29 +469,40 @@
   border-radius: 999px;
   width: 35px;
   height: 35px;
-  background-color: #0173E5;
+  background-color: white;
   color: white;
   border: none;
   font-weight: 400;
 }
 
+#next-icon {
+  color: black;
+}
+
 .prev-button:hover {
   cursor: pointer;
-  background-color: #0479ef;
+  background-color: rgb(250, 248, 248);
 }
 
 .play-button:hover {
   cursor: pointer;
-  background-color: #031424;
+  background-color: #0479ef;
 }
 
 .next-button:hover {
   cursor: pointer;
-  background-color: #0479ef;
+  background-color: rgb(250, 248, 248);
 }
 
 .bar-and-slider {
   margin-top: 20px;
+}
+
+.progress-and-volume-sliders {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
 }
 
 .progress-bar {
@@ -474,11 +513,12 @@
   margin-top: 10px;
 }
 
-.progress-and-volume-sliders {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
+#current-time {
+  color: white;
+}
+
+#duration {
+  color: white;
 }
 
 .time {
@@ -497,4 +537,16 @@
   display: flex;
   margin-top: 10px;
   gap: 8px;
+}
+
+#volume-icon {
+  color: white;
+}
+
+.song-name {
+  color: white;
+}
+
+.artist-info {
+  font-size: 12px;
 }

@@ -267,7 +267,7 @@ function toggleLoop() {
     loop.title = "Disable loop";
   } else {
     audio.loop = false;
-    loop.style.color = "black";
+    loop.style.color = "white";
     loop.title = "Enable loop";
   }
 }
@@ -279,7 +279,7 @@ function toggleShuffle() {
     shuffle.title = "Disable shuffle";
   } else if (shuffle.dataset.state === "true") {
     shuffle.dataset.state = "false";
-    shuffle.style.color = "black";
+    shuffle.style.color = "white";
     shuffle.title = "Enable shuffle";
   }
 }
@@ -450,7 +450,7 @@ function addSongToUI(song) {
   albumImageWrapper.className = "album-image-wrapper";
   artistInfo.setAttribute("id", song.id);
   artistInfo.textContent = `${song.artist}`;
-  artistInfo.style.color = "gray";
+  artistInfo.style.color = "white";
   artistInfo.className = "artist-info";
   albumImage.setAttribute("id", song.id);
   albumImage.className = "album-image";
