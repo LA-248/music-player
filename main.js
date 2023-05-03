@@ -355,6 +355,8 @@ function skipToNextSong(index) {
   
   artistTitle.textContent = savedSongs[index].artist;
   artistPicture.src = savedSongs[index].picture;
+
+  changePlaybackIcon();
 }
 
 
@@ -398,6 +400,8 @@ function playSong(event) {
   
       artistTitle.textContent = savedSongs[currentSongIndex].artist;
       artistPicture.src = savedSongs[currentSongIndex].picture;
+
+      changePlaybackIcon();
     });
 
     // Skip to the next song once the current song has ended
