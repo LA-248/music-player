@@ -69,6 +69,11 @@ body {
   margin: 20px 0px 10px 0px;
 }
 
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .song-filter-button {
   width: 150px;
   padding: 10px;
@@ -82,6 +87,22 @@ body {
 }
 
 .song-filter-button:hover {
+  cursor: pointer;
+}
+
+.added-songs-filter-button {
+  width: 150px;
+  padding: 10px;
+  font-size: 13px;
+  background: transparent;
+  border-radius: 25px;
+  border: 1px solid white;
+  margin-bottom: 40px;
+  color: white;
+  white-space: nowrap;
+}
+
+.added-songs-filter-button:hover {
   cursor: pointer;
 }
 
