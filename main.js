@@ -682,23 +682,48 @@ function searchDatabaseSongs() {
   }
 }
 
-const filterButton = document.querySelector(".song-filter-button");
+const songsNotAddedFilterButton = document.querySelector(".song-filter-button");
+const songsAddedFilterButton = document.querySelector(".added-songs-filter-button")
 
-function filterSongs() {
-  if (filterButton.className === "song-filter-button") {
+function filterBySongsNotAdded() {
+  if (songsAddedFilterButton.className.includes("song-filter-active")) {
+    return;
+  }
+  if (songsNotAddedFilterButton.className === "song-filter-button") {
     databaseSongs.forEach(song => {
       if (song.lastElementChild.className.includes("added-active")) {
         song.style.display = "none";
       }
     });
-  } else if (filterButton.className === "song-filter-button song-filter-active") {
+  } else if (songsNotAddedFilterButton.className === "song-filter-button song-filter-active") {
     databaseSongs.forEach(song => {
       if (song.lastElementChild.className.includes("added-active")) {
         song.style.display = "";
       }
     });
   }
-  filterButton.classList.toggle("song-filter-active");
+  songsNotAddedFilterButton.classList.toggle("song-filter-active");
 }
 
-filterButton.addEventListener("click", filterSongs);
+function filterBySongsAdded() {
+  if (songsNotAddedFilterButton.className.includes("song-filter-active")) {
+    return;
+  }
+  if (songsAddedFilterButton.className === "added-songs-filter-button") {
+    databaseSongs.forEach(song => {
+      if (song.lastElementChild.className === "add-button") {
+        song.style.display = "none";
+      }
+    });
+  } else if (songsAddedFilterButton.className === "added-songs-filter-button song-filter-active") {
+    databaseSongs.forEach(song => {
+      if (song.lastElementChild.className === "add-button") {
+        song.style.display = "";
+      }
+    });
+  }
+  songsAddedFilterButton.classList.toggle("song-filter-active");
+}
+
+songsNotAddedFilterButton.addEventListener("click", filterBySongsNotAdded);
+songsAddedFilterButton.addEventListener("click", filterBySongsAdded);
