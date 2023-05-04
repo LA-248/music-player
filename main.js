@@ -681,3 +681,24 @@ function searchDatabaseSongs() {
     }
   }
 }
+
+const filterButton = document.querySelector(".song-filter-button");
+
+function filterSongs() {
+  if (filterButton.className === "song-filter-button") {
+    databaseSongs.forEach(song => {
+      if (song.lastElementChild.className.includes("added-active")) {
+        song.style.display = "none";
+      }
+    });
+  } else if (filterButton.className === "song-filter-button song-filter-active") {
+    databaseSongs.forEach(song => {
+      if (song.lastElementChild.className.includes("added-active")) {
+        song.style.display = "";
+      }
+    });
+  }
+  filterButton.classList.toggle("song-filter-active");
+}
+
+filterButton.addEventListener("click", filterSongs);
