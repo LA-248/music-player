@@ -623,6 +623,7 @@ window.onload = () => {
     const song = savedSongs[0];
     loadSong(song);
   }
+  audio.volume = volumeControl.value;
 }
 
 songLibrary.addEventListener("dblclick", event => {
