@@ -182,6 +182,16 @@ const songStorage = [
     picture: "images/artist-pictures/daft-punk.jpeg",
     streams: 0,
     id: 15
+  },
+  {
+    title: "Gust of Wind",
+    album: "G I R L",
+    artist: "Pharrell Williams",
+    source: "songs/Pharrell Williams - Gust of Wind.mp3",
+    cover: "images/album-covers/girl.jpeg",
+    picture: "images/artist-pictures/pharrell-williams.jpeg",
+    streams: 0,
+    id: 16
   }
 ];
 
@@ -366,7 +376,7 @@ function playSong(event) {
     // If the user clicked on a valid song element, we retrieve the song ID from the element's ID attribute and convert it to an integer
     const clickedSongId = parseInt(event.target.getAttribute("id"));
 
-    // Find the song object in our songStorage array that matches the clicked song's ID
+    // Find the song object in our savedSongs array that matches the clicked song's ID
     const clickedSong = savedSongs.find(song => song.id === clickedSongId);
 
     // If we found a valid song object with a corresponding ID to that of the clicked song, we update various elements with the clicked song's information
@@ -517,7 +527,7 @@ addButtons.forEach((button, index) => {
   button.addEventListener("click", () => {
     // Check if the ID of the add button already exists in the buttonIDs array
     if (buttonIDs.includes(parseInt(button.id))) {
-      return; // If it does, do nothing
+      return; // If it does, this means the song has already been added - therefore, do nothing
     } else {
       // If it doesn't, add the song to the user's library and update the button
       addSong(index);
