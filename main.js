@@ -28,6 +28,9 @@ const addSongWrapper = document.querySelector(".add-song-wrapper");
 const removeButtons = document.querySelectorAll(".remove-button");
 const addedActive = document.querySelector(".added-active");
 
+const playlistsCard = document.querySelector(".playlists-card");
+const allPlaylists = document.querySelector(".all-playlists");
+
 let isErrorMessageAppended = false;
 let hasRunOnce = false;
 
@@ -312,7 +315,7 @@ function changePlaybackIcon() {
   }
 }
 
-// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if it's not found or invalid
+// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if nothing is found
 const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
 function displayClickedSong(song) {
@@ -344,6 +347,7 @@ function loadSong(song) {
 
 function skipToNextSong(index) {
   // Increment index and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
+  // Depending on if the shuffle state is true or false, either skip to the next song or to a random song in the library
   if (shuffle.dataset.state === "true") {
     index = Math.floor(Math.random(index) * savedSongs.length) % savedSongs.length;
   } else if (shuffle.dataset.state === "false") {
@@ -389,6 +393,7 @@ function playSong(event) {
 
     nextButton.addEventListener("click", () => {
       // Increment index and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
+      // Depending on if the shuffle state is true or false, either skip to the next song or to a random song in the library
       if (shuffle.dataset.state === "true") {
         currentSongIndex = Math.floor(Math.random(currentSongIndex) * savedSongs.length) % savedSongs.length;
       } else if (shuffle.dataset.state === "false") {
@@ -444,6 +449,7 @@ function playSong(event) {
   }
 }
 
+// This function is used to create a new song and add it to the UI
 function addSongToUI(song) {
   const addedSong = document.createElement("div");
   const songContainer = document.createElement("div");
@@ -488,7 +494,7 @@ function addSongToUI(song) {
 }
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
-// The index is retrieved from the "Add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
+// The index is retrieved from the "add" button that was clicked, which is then used in the "addButtons" forEach loop to display the correct song info in the library
 function addSong(index) {
   // Retrieve the song object from the songStorage array using the provided index
   const song = songStorage[index];
@@ -516,7 +522,7 @@ function addSong(index) {
 
 console.log(savedSongs);
 
-// Add saved songs to the UI
+// Add the saved songs to the UI
 savedSongs.forEach((song) => {
   addSongToUI(song);
 });
@@ -525,7 +531,7 @@ const buttonIDs = JSON.parse(localStorage.getItem("buttonIDs")) || [];
 
 addButtons.forEach((button, index) => {
   button.addEventListener("click", () => {
-    // Check if the ID of the add button already exists in the buttonIDs array
+    // Check if the ID of the "add" button already exists in the buttonIDs array
     if (buttonIDs.includes(parseInt(button.id))) {
       return; // If it does, this means the song has already been added - therefore, do nothing
     } else {
@@ -548,10 +554,11 @@ function removeSong(event) {
     const songToRemove = event.target.parentElement;
     songToRemove.remove();
 
-    const removeButtonId = parseInt(event.target.getAttribute("id"));
+    // Retrieve the ID of the remove button that was clicked
+    const clickedRemoveButtonId = parseInt(event.target.getAttribute("id"));
 
     // Find the "add" button that has the same ID as the clicked remove button
-    const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === removeButtonId);
+    const buttonToChange = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === clickedRemoveButtonId);
 
     // If an "add" button with the same ID was found, remove the "added-active" class and change the button text to "Add"
     if (buttonToChange) {
@@ -559,17 +566,17 @@ function removeSong(event) {
       buttonToChange.textContent = "Add";
     }
 
-    // Find the index of the song to remove in the 'savedSongs' array
-    const indexToDelete = savedSongs.findIndex(song => parseInt(song.id) === removeButtonId);
+    // Find the index of the song to remove in the "savedSongs" array
+    const indexToDelete = savedSongs.findIndex(song => parseInt(song.id) === clickedRemoveButtonId);
     console.log(indexToDelete);
 
-    // Remove the song from the savedSongs array using the splice() method
+    // Remove the respective song from the savedSongs array using the splice() method
     savedSongs.splice(indexToDelete, 1);
 
     // Save the updated savedSongs array to localStorage as a string
     localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
 
-    // Remove the ID from the buttonIDs array using the splice() method
+    // Remove the respective ID from the buttonIDs array using the splice() method - this styles the button back to "add"
     buttonIDs.splice(indexToDelete, 1);
     
     // Store the updated array of button IDs in local storage
@@ -580,7 +587,7 @@ function removeSong(event) {
 }
 
 function prevSong() {
-  // If the audio is currently playing, reset the audio and automatically start playing it + update the counter
+  // If the audio is currently playing, reset the audio and automatically start playing it
   if (audio.paused === false) {
     audio.load();
     audio.play();
@@ -600,10 +607,17 @@ function resumeSong() {
   }
 }
 
-// Add click event listeners to the play/pause, previous, and next buttons
 playButton.addEventListener("click", resumeSong);
 
 prevButton.addEventListener("click", prevSong);
+
+songLibrary.addEventListener("dblclick", event => {
+  playSong(event);
+});
+
+songLibrary.addEventListener("click", event => {
+  removeSong(event);
+});
 
 const songDatabaseModal = document.getElementById("song-database-modal");
 const exploreSongsButton = document.getElementById("explore-songs");
@@ -636,27 +650,26 @@ window.onload = () => {
   audio.volume = volumeControl.value;
 }
 
-songLibrary.addEventListener("dblclick", event => {
-  playSong(event);
-});
-
-songLibrary.addEventListener("click", event => {
-  removeSong(event);
-});
-
 const databaseSongsArray = Array.from(databaseSongs)
 console.log(databaseSongsArray);
 
+// This code ensures that the "add" button is styled as "added" if the song exists in the user's song library
+// It does this by checking if the ID of a saved song matches the ID of an add button - if it does, the button is updated as "added"
 for (let i = 0; i < savedSongs.length; i++ ) {
+  // Get the ID of the current saved song
   const savedSongId = savedSongs[i].id;
-
+  // Find the "add" button that corresponds to the saved song by using the find method and checking if the button's ID matches the savedSong's ID
   const matchingButton = addButtonsArray.find(button => parseInt(button.getAttribute("id")) === savedSongId);
 
+  // If a matching button is found
   if (matchingButton) {
+    // Update the text of the button to indicate the song has been added
     matchingButton.textContent = "Added"
+    // Toggle the "added-active" class to style the button as "added"
     matchingButton.classList.toggle("added-active");
   }
 }
+
 
 const songLibrarySubtext = document.getElementById("song-library-subtext");
 if (savedSongs.length === 0) {
@@ -667,7 +680,7 @@ if (savedSongs.length === 0) {
 
 const currentSelection = document.getElementById("current-selection");
 
-// This function searches for a given song in the song database and filters out those that do not match the search term
+// This function searches for a given song or artist in the database and filters out those that do not match the search term
 function searchDatabaseSongs() {
   const searchBar = document.getElementById("music-search").value.toUpperCase();
   const info = document.querySelectorAll(".info");
