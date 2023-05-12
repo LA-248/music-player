@@ -1,7 +1,7 @@
 # Music Player
 
 ## Description
-This project is a music player that allows you to play music by choosing from a preset selection of songs and adding them to your own custom playlist, songs may also be removed.
+This project is a music player that allows you to play music by choosing from a preset selection of songs and adding them to your own custom library.
 
 Includes search and filter functionality to easily find songs or artists, you may also shuffle through your library and put music on a loop. Plus, local persistent storage was incorporated to store the song library.
 
