@@ -10,8 +10,8 @@ const volumeControl = document.getElementById("volume-control");
 const playCount = document.getElementById("play-count");
 
 const songInfo = document.querySelector(".song-info");
-const songTitle = document.getElementById("song-title");
-const artistName = document.getElementById("artist-name");
+const songTitle = document.querySelector(".song-title");
+const artistName = document.querySelector(".artist-name");
 const artistTitle = document.getElementById("artist-title");
 const artistPicture = document.getElementById("artist-picture");
 const albumCover = document.getElementById("album-cover");
@@ -242,21 +242,21 @@ if (audio.readyState > 0) {
 
 // When the slider is moved, update the current time text
 // If the audio is playing or paused, cancel the animation frame so that it doesn't interfere with the slider
-slider.addEventListener('input', () => {
-  currentTime.textContent = calculateTime(slider.value);
+slider.addEventListener('input', function() {
+  currentTime.textContent = calculateTime(this.value);
   cancelAnimationFrame(raf);
 });
 
 // When the slider is changed (either by moving it or clicking on it), update the audio's current time
 // If the audio is playing or paused, request an animation frame to update the slider and current time text while playing
-slider.addEventListener('change', () => {
-  audio.currentTime = slider.value;
+slider.addEventListener('change', function() {
+  audio.currentTime = this.value;
   requestAnimationFrame(whilePlaying);
 });
 
 // Update the volume as the user adjusts the volume control
-volumeControl.addEventListener("input", () => {
-  audio.volume = volumeControl.value;
+volumeControl.addEventListener("input", function() {
+  audio.volume = this.value;
 });
 
 const rewind = document.querySelector(".rewind");
@@ -654,7 +654,7 @@ const databaseSongsArray = Array.from(databaseSongs)
 console.log(databaseSongsArray);
 
 // This code ensures that the "add" button is styled as "added" if the song exists in the user's song library
-// It does this by checking if the ID of a saved song matches the ID of an add button - if it does, the button is updated as "added"
+// It does this by checking if the ID of a saved song matches the ID of an add button - if it does, the button is styled as "added"
 for (let i = 0; i < savedSongs.length; i++ ) {
   // Get the ID of the current saved song
   const savedSongId = savedSongs[i].id;
