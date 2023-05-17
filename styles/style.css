@@ -9,10 +9,10 @@ body {
 
 .main-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  gap: 10px;
 }
 
 .background-card {
@@ -161,7 +161,7 @@ body {
   text-align: center;
 }
 
-#song-title {
+.song-title {
   margin-bottom: -10px;
   font-size: 16px;
   font-weight: 500;
@@ -169,7 +169,7 @@ body {
   color: white;
 }
 
-#artist-name {
+.artist-name {
   font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
