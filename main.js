@@ -320,6 +320,20 @@ const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
 let lastSongPlayed = JSON.parse(localStorage.getItem("lastSongPlayed")) || {};
 
+function saveLastSongPlayed(song) {
+  lastSongPlayed = {
+    title: song.title,
+    artist: song.artist,
+    album: song.album,
+    cover: song.cover,
+    source: song.source,
+    picture: song.picture,
+    streams: song.streams,
+    id: song.id,
+  };
+  localStorage.setItem("lastSongPlayed", JSON.stringify(lastSongPlayed));
+}
+
 function displayClickedSong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
@@ -330,18 +344,7 @@ function displayClickedSong(song) {
     artistTitle.textContent = `${song.artist}`;
     artistPicture.src = `${song.picture}`;
 
-    lastSongPlayed = {
-      title: song.title,
-      artist: song.artist,
-      album: song.album,
-      cover: song.cover,
-      source: song.source,
-      picture: song.picture,
-      streams: song.streams,
-      id: song.id,
-    };
-
-    localStorage.setItem("lastSongPlayed", JSON.stringify(lastSongPlayed));
+    saveLastSongPlayed(song);
 
     song.streams += 1;
     localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
@@ -418,6 +421,8 @@ function playSong(event) {
       songTitle.textContent = `${savedSongs[currentSongIndex].title}`;
       artistName.textContent = `${savedSongs[currentSongIndex].artist} | ${savedSongs[currentSongIndex].album}`;
       albumCover.src = `${savedSongs[currentSongIndex].cover}`;
+
+      saveLastSongPlayed(savedSongs[currentSongIndex]);
   
       // Pause the audio before changing the source
       audio.pause();
