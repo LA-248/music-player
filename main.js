@@ -318,6 +318,8 @@ function changePlaybackIcon() {
 // Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if nothing is found
 const savedSongs = JSON.parse(localStorage.getItem("songLibrary")) || [];
 
+let lastSongPlayed = JSON.parse(localStorage.getItem("lastSongPlayed")) || {};
+
 function displayClickedSong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
@@ -327,6 +329,19 @@ function displayClickedSong(song) {
 
     artistTitle.textContent = `${song.artist}`;
     artistPicture.src = `${song.picture}`;
+
+    lastSongPlayed = {
+      title: song.title,
+      artist: song.artist,
+      album: song.album,
+      cover: song.cover,
+      source: song.source,
+      picture: song.picture,
+      streams: song.streams,
+      id: song.id,
+    };
+
+    localStorage.setItem("lastSongPlayed", JSON.stringify(lastSongPlayed));
 
     song.streams += 1;
     localStorage.setItem("songLibrary", JSON.stringify(savedSongs));
@@ -644,8 +659,7 @@ window.onload = () => {
     const song = songStorage[0];
     loadSong(song);
   } else {
-    const song = savedSongs[0];
-    loadSong(song);
+    loadSong(lastSongPlayed);
   }
   audio.volume = volumeControl.value;
 }
