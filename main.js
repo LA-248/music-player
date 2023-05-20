@@ -221,11 +221,21 @@ function setSliderMax() {
   slider.max = Math.floor(audio.duration);
 }
 
+const savedSliderValue = JSON.parse(localStorage.getItem("savedSliderValue")) || [];
+const savedAudioValue = JSON.parse(localStorage.getItem("savedAudioValue")) || [];
+const savedCurrentTime = JSON.parse(localStorage.getItem("savedCurrentTime")) || [];
+const savedVolumeControlValue = JSON.parse(localStorage.getItem("savedVolumeControlValue")) || [];
+const savedAudioVolume = JSON.parse(localStorage.getItem("savedAudioVolume")) || [];
+
 // This function updates the slider and current time text while the audio is playing
 function whilePlaying() {
   slider.value = Math.floor(audio.currentTime);
   currentTime.textContent = calculateTime(slider.value);
   raf = requestAnimationFrame(whilePlaying);
+
+  localStorage.setItem("savedSliderValue", JSON.stringify(slider.value));
+  localStorage.setItem("savedCurrentTime", JSON.stringify(currentTime.textContent));
+  localStorage.setItem("savedAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
 }
 
 // If the audio has already loaded, then display the duration and set the slider max
@@ -245,6 +255,8 @@ if (audio.readyState > 0) {
 slider.addEventListener('input', function() {
   currentTime.textContent = calculateTime(this.value);
   cancelAnimationFrame(raf);
+
+  localStorage.setItem("savedCurrentTime", JSON.stringify(currentTime.textContent));
 });
 
 // When the slider is changed (either by moving it or clicking on it), update the audio's current time
@@ -252,11 +264,15 @@ slider.addEventListener('input', function() {
 slider.addEventListener('change', function() {
   audio.currentTime = this.value;
   requestAnimationFrame(whilePlaying);
+
+  localStorage.setItem("savedAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
 });
 
 // Update the volume as the user adjusts the volume control
 volumeControl.addEventListener("input", function() {
   audio.volume = this.value;
+  localStorage.setItem("savedVolumeControlValue", JSON.stringify(volumeControl.value));
+  localStorage.setItem("savedAudioVolume", JSON.stringify(audio.volume));
 });
 
 const rewind = document.querySelector(".rewind");
@@ -666,7 +682,11 @@ window.onload = () => {
   } else {
     loadSong(lastSongPlayed);
   }
-  audio.volume = volumeControl.value;
+  audio.volume = savedAudioVolume;
+  volumeControl.value = savedVolumeControlValue;
+  audio.currentTime = savedAudioValue;
+  currentTime.textContent = savedCurrentTime;
+  slider.value = savedAudioValue;
 }
 
 const databaseSongsArray = Array.from(databaseSongs)
