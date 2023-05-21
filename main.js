@@ -694,13 +694,19 @@ window.onload = () => {
   } else {
     loadSong(lastSongPlayed);
   }
+
+  shuffle.dataset.state = "false";
+
+  if (shuffleState) {
+    shuffle.dataset.state = shuffleState;
+  }
+
   audio.volume = savedAudioVolume;
   volumeControl.value = savedVolumeControlValue;
   audio.currentTime = savedAudioValue;
   currentTime.textContent = savedCurrentTime;
   slider.value = savedAudioValue;
 
-  shuffle.dataset.state = shuffleState;
   audio.loop = loopState;
   shuffle.style.color = shuffleColor;
   loop.style.color = loopColor;
