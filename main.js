@@ -289,6 +289,13 @@ fastForward.addEventListener("click", () => {
 const loop = document.getElementById("loop");
 const shuffle = document.getElementById("shuffle");
 
+const shuffleState = JSON.parse(localStorage.getItem("shuffleState"));
+const loopState = JSON.parse(localStorage.getItem("loopState"));
+const shuffleColor = JSON.parse(localStorage.getItem("shuffleColor"));
+const loopColor = JSON.parse(localStorage.getItem("loopColor"));
+const shuffleTitle = JSON.parse(localStorage.getItem("shuffleTitle"));
+const loopTitle = JSON.parse(localStorage.getItem("loopTitle"));
+
 function toggleLoop() {
   if (audio.loop === false) {
     audio.loop = true;
@@ -299,6 +306,9 @@ function toggleLoop() {
     loop.style.color = "white";
     loop.title = "Enable loop";
   }
+  localStorage.setItem("loopState", JSON.stringify(audio.loop));
+  localStorage.setItem("loopColor", JSON.stringify(loop.style.color));
+  localStorage.setItem("loopTitle", JSON.stringify(loop.title));
 }
 
 function toggleShuffle() {
@@ -311,10 +321,12 @@ function toggleShuffle() {
     shuffle.style.color = "white";
     shuffle.title = "Enable shuffle";
   }
+  localStorage.setItem("shuffleState", JSON.stringify(shuffle.dataset.state));
+  localStorage.setItem("shuffleColor", JSON.stringify(shuffle.style.color));
+  localStorage.setItem("shuffleTitle", JSON.stringify(shuffle.title));
 }
 
 loop.addEventListener("click", toggleLoop);
-
 shuffle.addEventListener("click", toggleShuffle);
 
 function changePlayButtonClass() {
@@ -687,6 +699,13 @@ window.onload = () => {
   audio.currentTime = savedAudioValue;
   currentTime.textContent = savedCurrentTime;
   slider.value = savedAudioValue;
+
+  shuffle.dataset.state = shuffleState;
+  audio.loop = loopState;
+  shuffle.style.color = shuffleColor;
+  loop.style.color = loopColor;
+  shuffle.title = shuffleTitle;
+  loop.title = loopTitle;
 }
 
 const databaseSongsArray = Array.from(databaseSongs)
