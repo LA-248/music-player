@@ -195,6 +195,86 @@ const songStorage = [
     picture: "images/artist-pictures/pharrell-williams.jpeg",
     streams: 0,
     id: 16
+  },
+  {
+    title: "Boogie Wonderland",
+    album: "I Am",
+    artist: "Earth, Wind & Fire",
+    source: "songs/Earth, Wind & Fire - Boogie Wonderland.mp3",
+    cover: "images/album-covers/i-am.jpeg",
+    picture: "images/artist-pictures/earth-wind-fire.jpeg",
+    streams: 0,
+    id: 17
+  },
+  {
+    title: "Let's Groove",
+    album: "Raise!",
+    artist: "Earth, Wind & Fire",
+    source: "songs/Earth, Wind & Fire - Let's Groove.mp3",
+    cover: "images/album-covers/raise!.jpeg",
+    picture: "images/artist-pictures/earth-wind-fire.jpeg",
+    streams: 0,
+    id: 18
+  },
+  {
+    title: "Moscow Mule",
+    album: "Un Verano Sin Ti",
+    artist: "Bad Bunny",
+    source: "songs/Bad Bunny - Moscow Mule.mp3",
+    cover: "images/album-covers/un-verano-sin-ti.jpeg",
+    picture: "images/artist-pictures/bad-bunny.jpeg",
+    streams: 0,
+    id: 19
+  },
+  {
+    title: "Robot Rock",
+    album: "Human After All",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Robot Rock.mp3",
+    cover: "images/album-covers/human-after-all.jpeg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
+    id: 20
+  },
+  {
+    title: "Technologic",
+    album: "Human After All",
+    artist: "Daft Punk",
+    source: "songs/Daft Punk - Technologic.mp3",
+    cover: "images/album-covers/human-after-all.jpeg",
+    picture: "images/artist-pictures/daft-punk.jpeg",
+    streams: 0,
+    id: 21
+  },
+  {
+    title: "Dile",
+    album: "The Last Don",
+    artist: "Don Omar",
+    source: "songs/Don Omar - Dile.mp3",
+    cover: "images/album-covers/the-last-don.jpeg",
+    picture: "images/artist-pictures/don-omar.jpeg",
+    streams: 0,
+    id: 22
+  },
+  {
+    title: "Starboy",
+    album: "Starboy",
+    artist: "The Weeknd, Daft Punk",
+    source: "songs/The Weeknd - Starboy.mp3",
+    cover: "images/album-covers/starboy.jpg",
+    picture: "images/artist-pictures/the-weeknd.jpeg",
+    streams: 0,
+    id: 23
+  },
+  {
+    title: "Sacrifice",
+    album: "Dawn FM",
+    artist: "The Weeknd",
+    source: "songs/The Weeknd - Sacrifice.mp3",
+    cover: "images/album-covers/dawn-fm.png",
+    picture: "images/artist-pictures/the-weeknd.jpeg",
+    streams: 0,
+    id: 24
   }
 ];
 
