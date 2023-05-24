@@ -206,11 +206,6 @@ body {
   color: white;
 }
 
-#artist-title:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .right-card {
   display: flex;
   flex-direction: column;
