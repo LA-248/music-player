@@ -169,11 +169,16 @@ body {
   color: white;
 }
 
-.artist-name {
+.album-name {
   font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
   color: white;
+}
+
+.album-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .divider {

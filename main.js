@@ -11,7 +11,7 @@ const playCount = document.getElementById("play-count");
 
 const songInfo = document.querySelector(".song-info");
 const songTitle = document.querySelector(".song-title");
-const artistName = document.querySelector(".artist-name");
+const albumName = document.querySelector(".album-name");
 const artistTitle = document.getElementById("artist-title");
 const artistPicture = document.getElementById("artist-picture");
 const albumCover = document.getElementById("album-cover");
@@ -365,7 +365,7 @@ function saveLastSongPlayed(song) {
 function displayClickedSong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
-    artistName.textContent = `${song.artist} | ${song.album}`;
+    albumName.textContent = `${song.album}`;
     albumCover.src = `${song.cover}`;
     audio.src = `${song.source}`;
 
@@ -382,7 +382,7 @@ function displayClickedSong(song) {
 function loadSong(song) {
   if (song) {
     songTitle.textContent = `${song.title}`;
-    artistName.textContent = `${song.artist} | ${song.album}`;
+    albumName.textContent = `${song.album}`;
     albumCover.src = `${song.cover}`;
     audio.src = `${song.source}`;
 
@@ -401,7 +401,7 @@ function skipToNextSong(index) {
   }
   
   songTitle.textContent = `${savedSongs[index].title}`;
-  artistName.textContent = `${savedSongs[index].artist} | ${savedSongs[index].album}`;
+  albumName.textContent = `${savedSongs[index].album}`;
   albumCover.src = `${savedSongs[index].cover}`;
   
   // Pause the audio before changing the source
@@ -447,7 +447,7 @@ function playSong(event) {
       }
   
       songTitle.textContent = `${savedSongs[currentSongIndex].title}`;
-      artistName.textContent = `${savedSongs[currentSongIndex].artist} | ${savedSongs[currentSongIndex].album}`;
+      albumName.textContent = `${savedSongs[currentSongIndex].album}`;
       albumCover.src = `${savedSongs[currentSongIndex].cover}`;
 
       saveLastSongPlayed(savedSongs[currentSongIndex]);
