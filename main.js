@@ -301,11 +301,11 @@ function setSliderMax() {
   slider.max = Math.floor(audio.duration);
 }
 
-const savedSliderValue = JSON.parse(localStorage.getItem("savedSliderValue")) || [];
-const savedAudioValue = JSON.parse(localStorage.getItem("savedAudioValue")) || [];
-const savedCurrentTime = JSON.parse(localStorage.getItem("savedCurrentTime")) || [];
-const savedVolumeControlValue = JSON.parse(localStorage.getItem("savedVolumeControlValue")) || [];
-const savedAudioVolume = JSON.parse(localStorage.getItem("savedAudioVolume")) || [];
+const sliderValue = JSON.parse(localStorage.getItem("sliderValue")) || [];
+const currentAudioValue = JSON.parse(localStorage.getItem("currentAudioValue")) || [];
+const currentAudioTimeText = JSON.parse(localStorage.getItem("currentAudioTimeText")) || [];
+const volumeControlValue = JSON.parse(localStorage.getItem("volumeControlValue")) || [];
+const audioVolume = JSON.parse(localStorage.getItem("audioVolume")) || [];
 
 // This function updates the slider and current time text while the audio is playing
 function whilePlaying() {
@@ -313,9 +313,9 @@ function whilePlaying() {
   currentTime.textContent = calculateTime(slider.value);
   raf = requestAnimationFrame(whilePlaying);
 
-  localStorage.setItem("savedSliderValue", JSON.stringify(slider.value));
-  localStorage.setItem("savedCurrentTime", JSON.stringify(currentTime.textContent));
-  localStorage.setItem("savedAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
+  localStorage.setItem("sliderValue", JSON.stringify(slider.value));
+  localStorage.setItem("currentAudioTimeText", JSON.stringify(currentTime.textContent));
+  localStorage.setItem("currentAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
 }
 
 // If the audio has already loaded, then display the duration and set the slider max
@@ -336,7 +336,7 @@ slider.addEventListener('input', function() {
   currentTime.textContent = calculateTime(this.value);
   cancelAnimationFrame(raf);
 
-  localStorage.setItem("savedCurrentTime", JSON.stringify(currentTime.textContent));
+  localStorage.setItem("currentAudioTimeText", JSON.stringify(currentTime.textContent));
 });
 
 // When the slider is changed (either by moving it or clicking on it), update the audio's current time
@@ -345,14 +345,14 @@ slider.addEventListener('change', function() {
   audio.currentTime = this.value;
   requestAnimationFrame(whilePlaying);
 
-  localStorage.setItem("savedAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
+  localStorage.setItem("currentAudioValue", JSON.stringify(Math.floor(audio.currentTime)));
 });
 
 // Update the volume as the user adjusts the volume control
 volumeControl.addEventListener("input", function() {
   audio.volume = this.value;
-  localStorage.setItem("savedVolumeControlValue", JSON.stringify(volumeControl.value));
-  localStorage.setItem("savedAudioVolume", JSON.stringify(audio.volume));
+  localStorage.setItem("volumeControlValue", JSON.stringify(volumeControl.value));
+  localStorage.setItem("audioVolume", JSON.stringify(audio.volume));
 });
 
 const rewind = document.querySelector(".rewind");
@@ -781,11 +781,11 @@ window.onload = () => {
     shuffle.dataset.state = shuffleState;
   }
 
-  audio.volume = savedAudioVolume;
-  volumeControl.value = savedVolumeControlValue;
-  audio.currentTime = savedAudioValue;
-  currentTime.textContent = savedCurrentTime;
-  slider.value = savedAudioValue;
+  audio.volume = audioVolume;
+  volumeControl.value = volumeControlValue;
+  audio.currentTime = currentAudioValue;
+  currentTime.textContent = currentAudioTimeText;
+  slider.value = currentAudioValue;
 
   audio.loop = loopState;
   shuffle.style.color = shuffleColor;
@@ -794,11 +794,11 @@ window.onload = () => {
   loop.title = loopTitle;
 }
 
-const databaseSongsArray = Array.from(databaseSongs)
+const databaseSongsArray = Array.from(databaseSongs);
 console.log(databaseSongsArray);
 
 // This code ensures that the "add" button is styled as "added" if the song exists in the user's song library
-// It does this by checking if the ID of a saved song matches the ID of an add button - if it does, the button is styled as "added"
+// It does this by checking if the ID of a saved song matches the ID of an add button - if a match is found (meaning the song has been added to the user's library), the button is styled as "added"
 for (let i = 0; i < savedSongs.length; i++ ) {
   // Get the ID of the current saved song
   const savedSongId = savedSongs[i].id;
