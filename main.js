@@ -608,6 +608,11 @@ function searchDatabaseSongs() {
   }
 }
 
+const musicSearch = document.getElementById("music-search");
+musicSearch.addEventListener("keyup", () => {
+  searchDatabaseSongs();
+});
+
 const songsNotAddedFilterButton = document.querySelector(".song-filter-button");
 const songsAddedFilterButton = document.querySelector(".added-songs-filter-button")
 
