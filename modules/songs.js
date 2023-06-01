@@ -239,5 +239,15 @@ export const songStorage = [
     picture: "../assets/images/artist-pictures/the-weeknd.jpeg",
     streams: 0,
     id: 24
+  },
+  {
+    title: "Dance Wiv Me (feat. Calvin Harris and Chrom3)",
+    album: "Tongue N' Cheek",
+    artist: "Dizzee Rascal",
+    source: "../assets/songs/Dizzee Rascal - Dance Wiv Me.mp3",
+    cover: "../assets/images/album-covers/tongue-and-cheek.jpeg",
+    picture: "../assets/images/artist-pictures/dizzee-rascal.jpeg",
+    streams: 0,
+    id: 25
   }
 ];
