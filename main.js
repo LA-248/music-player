@@ -1,5 +1,5 @@
 // Get references to HTML elements
-import songStorage from './modules/songs';
+import songStorage from './modules/songs.js';
 
 const audio = document.getElementById('my-audio');
 const backgroundCard = document.querySelector('.background-card');
@@ -99,7 +99,7 @@ if (audio.readyState > 0) {
 // When the slider is moved, update the current time text
 // If the audio is playing or paused, cancel the animation frame so that it doesn't interfere with the slider
 slider.addEventListener('input', () => {
-  currentTime.textContent = calculateTime(this.value);
+  currentTime.textContent = calculateTime(slider.value);
   cancelAnimationFrame(raf);
 
   localStorage.setItem(
@@ -110,8 +110,8 @@ slider.addEventListener('input', () => {
 
 // When the slider is changed (either by moving it or clicking on it), update the audio's current time
 // If the audio is playing or paused, request an animation frame to update the slider and current time text while playing
-slider.addEventListener('change', function () {
-  audio.currentTime = this.value;
+slider.addEventListener('change', () => {
+  audio.currentTime = slider.value;
   requestAnimationFrame(whilePlaying);
 
   localStorage.setItem(
@@ -121,8 +121,8 @@ slider.addEventListener('change', function () {
 });
 
 // Update the volume as the user adjusts the volume control
-volumeControl.addEventListener('input', function () {
-  audio.volume = this.value;
+volumeControl.addEventListener('input', () => {
+  audio.volume = volumeControl.value;
   localStorage.setItem(
     'volumeControlValue',
     JSON.stringify(volumeControl.value)
