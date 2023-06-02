@@ -1,6 +1,7 @@
 # Music Player
 
 ## Description
+
 This project is a music player that allows you to play music by choosing from a preset selection of songs and adding them to your own custom library, where they can be played.
 
 Includes search and filter functionality to easily find songs or artists, you may also shuffle through your library and put music on a loop. Local persistent storage was incorporated to store the user's song library and various pieces of audio data.
@@ -8,6 +9,7 @@ Includes search and filter functionality to easily find songs or artists, you ma
 ![music-player](https://github.com/LA-248/music-player/assets/104241771/daa59d6e-a944-4c81-b6d4-33379afd64fc)
 
 ## Technologies used
+
 This project was built using the following technologies:
 
 - HTML
@@ -15,6 +17,7 @@ This project was built using the following technologies:
 - JavaScript
 
 ## Features
+
 The music player includes the following features:
 
 - A preset selection of songs that can be chosen from to create a custom playlist
@@ -23,4 +26,5 @@ The music player includes the following features:
 - Shuffle and loop playback modes
 
 ## Usage
+
 This project is hosted on Vercel. To use the music player, click [here](https://try-music-player.vercel.app/).
