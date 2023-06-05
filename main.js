@@ -1,37 +1,44 @@
 // Get references to HTML elements
 import songStorage from './modules/songs.js';
+import {
+  savedSongs,
+  displayClickedSong,
+  loadSong,
+  audio,
+  songTitle,
+  albumName,
+  artistTitle,
+  artistPicture,
+  albumCover,
+  streams,
+  songLibrary,
+  lastSongPlayed,
+  saveLastSongPlayed,
+} from './modules/user-interface.js';
 
-const audio = document.getElementById('my-audio');
 const backgroundCard = document.querySelector('.background-card');
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');
 const playButton = document.querySelector('.play-button');
 const playIcon = document.getElementById('play-icon');
-const progressBar = document.querySelector('.progress-bar');
+// const songInfo = document.querySelector('.song-info');
+// const progressBar = document.querySelector('.progress-bar');
 const volumeControl = document.getElementById('volume-control');
-const playCount = document.getElementById('play-count');
+// const playCount = document.getElementById('play-count');
 
-const songInfo = document.querySelector('.song-info');
-const songTitle = document.querySelector('.song-title');
-const albumName = document.querySelector('.album-name');
-const artistTitle = document.getElementById('artist-title');
-const artistPicture = document.getElementById('artist-picture');
-const albumCover = document.getElementById('album-cover');
-const streams = document.querySelector('.streams');
-const songLibrary = document.querySelector('.song-library');
-const songDatabase = document.querySelector('.song-database');
-const songContent = document.querySelector('.song-content');
+// const songDatabase = document.querySelector('.song-database');
+// const songContent = document.querySelector('.song-content');
 
 const databaseSongs = document.querySelectorAll('.song');
-const addedSongs = document.querySelectorAll('.added-song');
+// const addedSongs = document.querySelectorAll('.added-song');
 
 const addButtons = document.querySelectorAll('.add-button');
-const addSongWrapper = document.querySelector('.add-song-wrapper');
-const removeButtons = document.querySelectorAll('.remove-button');
-const addedActive = document.querySelector('.added-active');
+// const addSongWrapper = document.querySelector('.add-song-wrapper');
+// const removeButtons = document.querySelectorAll('.remove-button');
+// const addedActive = document.querySelector('.added-active');
 
-const playlistsCard = document.querySelector('.playlists-card');
-const allPlaylists = document.querySelector('.all-playlists');
+// const playlistsCard = document.querySelector('.playlists-card');
+// const allPlaylists = document.querySelector('.all-playlists');
 
 let isErrorMessageAppended = false;
 
@@ -198,79 +205,33 @@ function changePlaybackIcon() {
   }
 }
 
-// Retrieves and parses the "songLibrary" key from localStorage, or assigns an empty array to "savedSongs" if nothing is found
-const savedSongs = JSON.parse(localStorage.getItem('songLibrary')) || [];
-
-let lastSongPlayed = JSON.parse(localStorage.getItem('lastSongPlayed')) || {};
-
-function saveLastSongPlayed(song) {
-  lastSongPlayed = {
-    title: song.title,
-    artist: song.artist,
-    album: song.album,
-    cover: song.cover,
-    source: song.source,
-    picture: song.picture,
-    streams: song.streams,
-    id: song.id,
-  };
-  localStorage.setItem('lastSongPlayed', JSON.stringify(lastSongPlayed));
-}
-
-function displayClickedSong(song) {
-  if (song) {
-    songTitle.textContent = `${song.title}`;
-    albumName.textContent = `${song.album}`;
-    albumCover.src = `${song.cover}`;
-    audio.src = `${song.source}`;
-
-    artistTitle.textContent = `${song.artist}`;
-    artistPicture.src = `${song.picture}`;
-
-    saveLastSongPlayed(song);
-
-    song.streams += 1;
-    localStorage.setItem('songLibrary', JSON.stringify(savedSongs));
-  }
-}
-
-function loadSong(song) {
-  if (song) {
-    songTitle.textContent = `${song.title}`;
-    albumName.textContent = `${song.album}`;
-    albumCover.src = `${song.cover}`;
-    audio.src = `${song.source}`;
-
-    artistTitle.textContent = `${song.artist}`;
-    artistPicture.src = `${song.picture}`;
-  }
-}
-
 function skipToNextSong(index) {
+  let songIndex = index;
   // Increment index and wrap it around to the beginning of the array if it exceeds the length of the savedSongs array
   // Depending on if the shuffle state is true or false, either skip to the next song or to a random song in the library
   if (shuffle.dataset.state === 'true') {
-    index =
-      Math.floor(Math.random(index) * savedSongs.length) % savedSongs.length;
+    songIndex =
+      Math.floor(Math.random(songIndex) * savedSongs.length) %
+      savedSongs.length;
   } else if (shuffle.dataset.state === 'false') {
-    index = (index + 1) % savedSongs.length;
+    songIndex = (songIndex + 1) % savedSongs.length;
   }
 
-  songTitle.textContent = `${savedSongs[index].title}`;
-  albumName.textContent = `${savedSongs[index].album}`;
-  albumCover.src = `${savedSongs[index].cover}`;
+  songTitle.textContent = `${savedSongs[songIndex].title}`;
+  albumName.textContent = `${savedSongs[songIndex].album}`;
+  albumCover.src = `${savedSongs[songIndex].cover}`;
 
   // Pause the audio before changing the source
   audio.pause();
-  audio.src = `${savedSongs[index].source}`;
+  audio.src = `${savedSongs[songIndex].source}`;
 
   // Wait for the new audio to load before playing it
   audio.addEventListener('loadedmetadata', () => {
     audio.play();
   });
 
-  artistTitle.textContent = savedSongs[index].artist;
-  artistPicture.src = savedSongs[index].picture;
+  artistTitle.textContent = savedSongs[songIndex].artist;
+  artistPicture.src = savedSongs[songIndex].picture;
 
   changePlaybackIcon();
 }
@@ -283,7 +244,7 @@ function playSong(event) {
     event.target.className === 'album-image'
   ) {
     // If the user clicked on a valid song element, we retrieve the song ID from the element's ID attribute and convert it to an integer
-    const clickedSongId = parseInt(event.target.getAttribute('id'));
+    const clickedSongId = parseInt(event.target.getAttribute('id'), 10);
 
     // Find the song object in our savedSongs array that matches the clicked song's ID
     const clickedSong = savedSongs.find((song) => song.id === clickedSongId);
@@ -442,18 +403,19 @@ savedSongs.forEach((song) => {
 const buttonIDs = JSON.parse(localStorage.getItem('buttonIDs')) || [];
 
 addButtons.forEach((button, index) => {
-  button.addEventListener('click', () => {
+  const addButton = button;
+  addButton.addEventListener('click', () => {
     // Check if the ID of the "add" button already exists in the buttonIDs array
-    if (buttonIDs.includes(parseInt(button.id))) {
+    if (buttonIDs.includes(parseInt(addButton.id, 10))) {
       // If it does, this means the song has already been added - therefore, do nothing
     } else {
       // If it doesn't, add the song to the user's library and update the button
       addSong(index);
-      button.classList.toggle('added-active');
-      button.textContent = 'Added';
+      addButton.classList.toggle('added-active');
+      addButton.textContent = 'Added';
 
       // Store the updated array of button IDs in local storage
-      buttonIDs.push(parseInt(button.id));
+      buttonIDs.push(parseInt(addButton.id, 10));
       localStorage.setItem('buttonIDs', JSON.stringify(buttonIDs));
     }
   });
@@ -467,11 +429,12 @@ function removeSong(event) {
     songToRemove.remove();
 
     // Retrieve the ID of the remove button that was clicked
-    const clickedRemoveButtonId = parseInt(event.target.getAttribute('id'));
+    const clickedRemoveButtonId = parseInt(event.target.getAttribute('id'), 10);
 
     // Find the "add" button that has the same ID as the clicked remove button
     const buttonToChange = addButtonsArray.find(
-      (button) => parseInt(button.getAttribute('id')) === clickedRemoveButtonId
+      (button) =>
+        parseInt(button.getAttribute('id'), 10) === clickedRemoveButtonId
     );
 
     // If an "add" button with the same ID was found, remove the "added-active" class and change the button text to "Add"
@@ -482,7 +445,7 @@ function removeSong(event) {
 
     // Find the index of the song to remove in the "savedSongs" array
     const indexToDelete = savedSongs.findIndex(
-      (song) => parseInt(song.id) === clickedRemoveButtonId
+      (song) => parseInt(song.id, 10) === clickedRemoveButtonId
     );
     console.log(indexToDelete);
 
@@ -550,7 +513,7 @@ closeIcon.onclick = () => {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {
-  if (event.target == songDatabaseModal) {
+  if (event.target === songDatabaseModal) {
     songDatabaseModal.style.display = 'none';
   }
 };
@@ -592,7 +555,7 @@ for (let i = 0; i < savedSongs.length; i++) {
   const savedSongId = savedSongs[i].id;
   // Find the "add" button that corresponds to the saved song by using the find method and checking if the button's ID matches the savedSong's ID
   const matchingButton = addButtonsArray.find(
-    (button) => parseInt(button.getAttribute('id')) === savedSongId
+    (button) => parseInt(button.getAttribute('id'), 10) === savedSongId
   );
 
   // If a matching button is found
@@ -620,7 +583,7 @@ function searchDatabaseSongs() {
   const info = document.querySelectorAll('.info');
 
   // Loop through each song in the database
-  for (let i = 0; i < info.length; i++) {
+  for (let i = 0; i < info.length; i += 1) {
     const match = databaseSongs[i].querySelectorAll('.info')[0];
 
     if (match) {
@@ -656,8 +619,9 @@ function filterBySongsNotAdded() {
   }
   if (songsNotAddedFilterButton.className === 'song-filter-button') {
     databaseSongs.forEach((song) => {
-      if (song.lastElementChild.className.includes('added-active')) {
-        song.style.display = 'none';
+      const databaseSong = song;
+      if (databaseSong.lastElementChild.className.includes('added-active')) {
+        databaseSong.style.display = 'none';
       }
     });
   } else if (
@@ -665,8 +629,9 @@ function filterBySongsNotAdded() {
     'song-filter-button song-filter-active'
   ) {
     databaseSongs.forEach((song) => {
-      if (song.lastElementChild.className.includes('added-active')) {
-        song.style.display = '';
+      const databaseSong = song;
+      if (databaseSong.lastElementChild.className.includes('added-active')) {
+        databaseSong.style.display = '';
       }
     });
   }
@@ -679,8 +644,9 @@ function filterBySongsAdded() {
   }
   if (songsAddedFilterButton.className === 'added-songs-filter-button') {
     databaseSongs.forEach((song) => {
-      if (song.lastElementChild.className === 'add-button') {
-        song.style.display = 'none';
+      const databaseSong = song;
+      if (databaseSong.lastElementChild.className === 'add-button') {
+        databaseSong.style.display = 'none';
       }
     });
   } else if (
@@ -688,8 +654,9 @@ function filterBySongsAdded() {
     'added-songs-filter-button song-filter-active'
   ) {
     databaseSongs.forEach((song) => {
-      if (song.lastElementChild.className === 'add-button') {
-        song.style.display = '';
+      const databaseSong = song;
+      if (databaseSong.lastElementChild.className === 'add-button') {
+        databaseSong.style.display = '';
       }
     });
   }
