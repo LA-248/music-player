@@ -15,6 +15,13 @@ import {
   lastSongPlayed,
   saveLastSongPlayed,
 } from './modules/user-interface.js';
+import {
+  songDatabaseModal,
+  exploreSongsButton,
+  closeIcon,
+  openModal,
+  closeModal,
+} from './modules/modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
 const prevButton = document.querySelector('.prev-button');
@@ -498,25 +505,11 @@ songLibrary.addEventListener('click', (event) => {
   removeSong(event);
 });
 
-const songDatabaseModal = document.getElementById('song-database-modal');
-const exploreSongsButton = document.getElementById('explore-songs');
 // When the user clicks on the button, open the modal
-exploreSongsButton.addEventListener('click', () => {
-  songDatabaseModal.style.display = 'block';
-});
+exploreSongsButton.addEventListener('click', openModal);
 
-const closeIcon = document.getElementsByClassName('close')[0];
 // When the user clicks on <span> (x), close the modal
-closeIcon.onclick = () => {
-  songDatabaseModal.style.display = 'none';
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = (event) => {
-  if (event.target === songDatabaseModal) {
-    songDatabaseModal.style.display = 'none';
-  }
-};
+closeIcon.addEventListener('click', closeModal);
 
 window.onload = () => {
   if (savedSongs.length === 0) {
