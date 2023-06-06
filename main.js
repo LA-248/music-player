@@ -12,37 +12,20 @@ import {
   albumCover,
   streams,
   songLibrary,
+  addSongToUI,
   lastSongPlayed,
   saveLastSongPlayed,
 } from './modules/user-interface.js';
-import {
-  songDatabaseModal,
-  exploreSongsButton,
-  closeIcon,
-  openModal,
-  closeModal,
-} from './modules/modal.js';
+import { songDatabaseModal, exploreSongsButton, closeIcon, openModal, closeModal } from './modules/modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');
 const playButton = document.querySelector('.play-button');
 const playIcon = document.getElementById('play-icon');
-// const songInfo = document.querySelector('.song-info');
-// const progressBar = document.querySelector('.progress-bar');
 const volumeControl = document.getElementById('volume-control');
-// const playCount = document.getElementById('play-count');
-
-// const songDatabase = document.querySelector('.song-database');
-// const songContent = document.querySelector('.song-content');
-
 const databaseSongs = document.querySelectorAll('.song');
-// const addedSongs = document.querySelectorAll('.added-song');
-
 const addButtons = document.querySelectorAll('.add-button');
-// const addSongWrapper = document.querySelector('.add-song-wrapper');
-// const removeButtons = document.querySelectorAll('.remove-button');
-// const addedActive = document.querySelector('.added-active');
 
 // const playlistsCard = document.querySelector('.playlists-card');
 // const allPlaylists = document.querySelector('.all-playlists');
@@ -327,50 +310,6 @@ function playSong(event) {
       }
     }
   }
-}
-
-// This function is used to create a new song and add it to the UI
-function addSongToUI(song) {
-  const addedSong = document.createElement('div');
-  const songContainer = document.createElement('div');
-  const songData = document.createElement('div');
-  const songName = document.createElement('div');
-  const albumImageWrapper = document.createElement('div');
-  const artistInfo = document.createElement('div');
-  const albumImage = document.createElement('img');
-  const removeButton = document.createElement('button');
-
-  addedSong.className = 'added-song';
-  addedSong.setAttribute('id', song.id);
-  songContainer.className = 'song-container';
-  songData.className = 'song-data';
-  songName.setAttribute('id', song.id);
-  songName.textContent = `${song.title}`;
-  songName.className = 'song-name';
-  albumImageWrapper.className = 'album-image-wrapper';
-  artistInfo.setAttribute('id', song.id);
-  artistInfo.textContent = `${song.artist}`;
-  artistInfo.style.color = 'white';
-  artistInfo.className = 'artist-info';
-  albumImage.setAttribute('id', song.id);
-  albumImage.className = 'album-image';
-  albumImage.src = `${song.cover}`;
-  albumImage.style.width = '40px';
-  albumImage.style.height = 'auto';
-  albumImage.style.borderRadius = '5px';
-  removeButton.className = 'remove-button';
-  removeButton.setAttribute('id', song.id);
-  removeButton.textContent = 'Remove';
-
-  addedSong.appendChild(songContainer);
-  songContainer.appendChild(albumImageWrapper);
-  songLibrary.appendChild(addedSong);
-  addedSong.appendChild(songName);
-  albumImageWrapper.appendChild(albumImage);
-  songData.appendChild(songName);
-  songData.appendChild(artistInfo);
-  songContainer.appendChild(songData);
-  addedSong.appendChild(removeButton);
 }
 
 // This function takes an index as input and adds a song to the page using information from the songStorage array
