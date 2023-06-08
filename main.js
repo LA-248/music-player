@@ -16,7 +16,13 @@ import {
   lastSongPlayed,
   saveLastSongPlayed,
 } from './modules/user-interface.js';
-import { songDatabaseModal, exploreSongsButton, closeIcon, openModal, closeModal } from './modules/modal.js';
+import {
+  exploreSongsButton,
+  dialog,
+  openModal,
+  closeModal,
+  closeIcon
+} from './modules/modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
 const prevButton = document.querySelector('.prev-button');
@@ -447,7 +453,9 @@ songLibrary.addEventListener('click', (event) => {
 // When the user clicks on the button, open the modal
 exploreSongsButton.addEventListener('click', openModal);
 
-// When the user clicks on <span> (x), close the modal
+// When the user clicks anywhere outside of the modal, close it
+// window.addEventListener('click', closeModal);
+
 closeIcon.addEventListener('click', closeModal);
 
 window.onload = () => {
@@ -482,7 +490,7 @@ console.log(databaseSongsArray);
 
 // This code ensures that the "add" button is styled as "added" if the song exists in the user's song library
 // It does this by checking if the ID of a saved song matches the ID of an add button - if a match is found (meaning the song has been added to the user's library), the button is styled as "added"
-for (let i = 0; i < savedSongs.length; i++) {
+for (let i = 0; i < savedSongs.length; i += 1) {
   // Get the ID of the current saved song
   const savedSongId = savedSongs[i].id;
   // Find the "add" button that corresponds to the saved song by using the find method and checking if the button's ID matches the savedSong's ID
