@@ -19,9 +19,11 @@ import {
 import {
   exploreSongsButton,
   dialog,
+  closeIcon,
+  modalContent,
   openModal,
   closeModal,
-  closeIcon,
+  closeModalOnClick
 } from './modules/modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
@@ -454,7 +456,7 @@ songLibrary.addEventListener('click', (event) => {
 exploreSongsButton.addEventListener('click', openModal);
 
 // When the user clicks anywhere outside of the modal, close it
-// window.addEventListener('click', closeModal);
+window.addEventListener('click', closeModalOnClick);
 
 closeIcon.addEventListener('click', closeModal);
 
