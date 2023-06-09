@@ -21,7 +21,7 @@ import {
   dialog,
   openModal,
   closeModal,
-  closeIcon
+  closeIcon,
 } from './modules/modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
