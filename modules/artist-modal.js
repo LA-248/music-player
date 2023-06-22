@@ -14,7 +14,7 @@ function closeArtistModalOnClick(event) {
 }
 
 async function getArtistBio(artist) {
-  const url = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=6bb72f7e3c9aec29039fbf5230937b08&format=json`;
+  const url = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=6bb72f7e3c9aec29039fbf5230937b08&format=json`;
 
   const response = await fetch(url, {
     method: 'GET',
