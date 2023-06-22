@@ -6,6 +6,7 @@ const artistPicture = document.getElementById('artist-picture');
 const albumCover = document.getElementById('album-cover');
 const streams = document.querySelector('.streams');
 const songLibrary = document.querySelector('.song-library');
+const playIcon = document.getElementById('play-icon');
 
 let lastSongPlayed = JSON.parse(localStorage.getItem('lastSongPlayed')) || {};
 
@@ -101,6 +102,12 @@ export function loadSong(song) {
   }
 }
 
+export function changePlaybackIcon() {
+  if (playIcon.className === 'fa-solid fa-play') {
+    playIcon.className = 'fa-solid fa-pause';
+  }
+}
+
 export {
   audio,
   songTitle,
@@ -110,6 +117,7 @@ export {
   albumCover,
   streams,
   songLibrary,
+  playIcon,
   addSongToUI,
   lastSongPlayed,
 };
