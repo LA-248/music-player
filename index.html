@@ -22,8 +22,21 @@
     <div class="main-container">
       <audio id="my-audio" preload="metadata"></audio>
       <div class="background-card">
-        <div class="explore-button-wrapper">
+        <div class="button-wrapper">
           <button id="explore-songs">Explore songs</button>
+          <!--
+          <form id="form" method="get">
+            <label for="search-song"></label>
+            <div class="search-container">
+              <input
+                type="text"
+                id="search-song"
+                placeholder="Search for a song"
+              />
+              <button id="submit">Search</button>
+            </div>
+          </form>
+          -->
         </div>
 
         <div class="card-wrapper">
@@ -54,7 +67,15 @@
             </div>
           </div>
 
-          <!-- The Modal -->
+          <!-- Artist Info Modal -->
+          <dialog id="artist-modal">
+            <div class="artist-modal-content">
+              <div class="about-heading">About</div>
+              <div class="artist-bio"></div>
+            </div>
+          </dialog>
+
+          <!-- The Song Database Modal -->
           <dialog id="dialog">
             <!-- Modal content -->
             <div class="modal-content">

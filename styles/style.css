@@ -28,13 +28,14 @@ body {
   padding: 40px;
 }
 
-.explore-button-wrapper {
+.button-wrapper {
   display: flex;
+  gap: 10px;
 }
 
 #explore-songs {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 40px;
   width: 150px;
   height: 40px;
@@ -49,6 +50,22 @@ body {
   cursor: pointer;
   background-color: #0479ef;
 }
+
+/*
+#search-song {
+  display: flex;
+  padding: 20px;
+  margin: 0px;
+  font-size: 13px;
+  border-radius: 25px;
+  width: 275px;
+  height: 40px;
+  background-color: #303030;
+  color: white;
+  border: none;
+  font-weight: 400;
+}
+*/
 
 #music-search {
   display: flex;
@@ -207,6 +224,11 @@ body {
   color: white;
 }
 
+#artist-title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .right-card {
   display: flex;
   flex-direction: column;
@@ -296,6 +318,43 @@ body {
 .remove-button:hover {
   cursor: pointer;
   background-color: #0479ef;
+}
+
+#artist-modal {
+  opacity: 0;
+  scale: 0;
+  display: block;
+  transition: 0.5s all;
+  background-color: transparent;
+}
+
+#artist-modal[open] {
+  opacity: 1;
+  scale: 1;
+  border: none;
+}
+
+.artist-modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #1d1d1d;
+  padding: 30px;
+  border-radius: 15px;
+  width: 800px; /* Could be more or less, depending on screen size */
+  max-height: 580px;
+  overflow: auto;
+}
+
+.about-heading {
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+}
+
+.artist-bio {
+  font-size: 13px;
+  color: white;
+  margin-top: 10px;
 }
 
 dialog {

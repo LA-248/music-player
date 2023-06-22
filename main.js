@@ -12,25 +12,28 @@ import {
   albumCover,
   streams,
   songLibrary,
+  playIcon,
   addSongToUI,
   lastSongPlayed,
   saveLastSongPlayed,
+  changePlaybackIcon,
 } from './modules/user-interface.js';
 import {
   exploreSongsButton,
   dialog,
   closeIcon,
-  modalContent,
   openModal,
   closeModal,
-  closeModalOnClick
-} from './modules/modal.js';
+  closeModalOnClick,
+} from './modules/song-library-modal.js';
+
+// import { updatePageOnSearch, form } from './modules/search.js';
+import { openArtistModal, closeArtistModalOnClick, getArtistBio, artistInfoWrapper } from './modules/artist-modal.js';
 
 const backgroundCard = document.querySelector('.background-card');
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');
 const playButton = document.querySelector('.play-button');
-const playIcon = document.getElementById('play-icon');
 const volumeControl = document.getElementById('volume-control');
 const databaseSongs = document.querySelectorAll('.song');
 const addButtons = document.querySelectorAll('.add-button');
@@ -194,12 +197,6 @@ function changePlayButtonClass() {
     playIcon.className = 'fa-solid fa-pause';
   } else {
     playIcon.className = 'fa-solid fa-play';
-  }
-}
-
-function changePlaybackIcon() {
-  if (playIcon.className === 'fa-solid fa-play') {
-    playIcon.className = 'fa-solid fa-pause';
   }
 }
 
@@ -457,8 +454,16 @@ exploreSongsButton.addEventListener('click', openModal);
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', closeModalOnClick);
+window.addEventListener('click', closeArtistModalOnClick);
 
 closeIcon.addEventListener('click', closeModal);
+
+artistTitle.addEventListener('click', openArtistModal);
+
+artistInfoWrapper.addEventListener('click', event => {
+  const artist = event.target.textContent;
+  getArtistBio(artist);
+});
 
 window.onload = () => {
   if (savedSongs.length === 0) {
@@ -607,3 +612,10 @@ function filterBySongsAdded() {
 
 songsNotAddedFilterButton.addEventListener('click', filterBySongsNotAdded);
 songsAddedFilterButton.addEventListener('click', filterBySongsAdded);
+
+/*
+form.addEventListener('submit', (event) => {
+  updatePageOnSearch(event);
+  requestAnimationFrame(whilePlaying);
+});
+*/
