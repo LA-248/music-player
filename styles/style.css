@@ -194,11 +194,6 @@ body {
   color: white;
 }
 
-.album-name:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .divider {
   width: 100%;
 }
