@@ -10,7 +10,6 @@ import {
   artistTitle,
   artistPicture,
   albumCover,
-  streams,
   songLibrary,
   playIcon,
   addSongToUI,
@@ -20,7 +19,6 @@ import {
 } from './modules/user-interface.js';
 import {
   exploreSongsButton,
-  dialog,
   closeIcon,
   openModal,
   closeModal,
