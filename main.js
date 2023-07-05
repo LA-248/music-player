@@ -54,12 +54,12 @@ function calculateTime(secs) {
   return `${minutes}:${returnedSeconds}`;
 }
 
-// This function updates the display of the audio's duration using the calculateTime function
+// Update the display of the audio's duration using the calculateTime function
 function displayDuration() {
   duration.textContent = calculateTime(audio.duration);
 }
 
-// This function sets the maximum value of the slider based on the audio's duration
+// Set the maximum value of the slider based on the audio's duration
 function setSliderMax() {
   slider.max = Math.floor(audio.duration);
 }
@@ -73,7 +73,7 @@ const volumeControlValue =
   JSON.parse(localStorage.getItem('volumeControlValue')) || [];
 const audioVolume = JSON.parse(localStorage.getItem('audioVolume')) || [];
 
-// This function updates the slider and current time text while the audio is playing
+// Update the slider and current time text while the audio is playing
 function whilePlaying() {
   slider.value = Math.floor(audio.currentTime);
   currentTime.textContent = calculateTime(slider.value);
@@ -335,7 +335,6 @@ function addSong(index) {
     id: song.id,
   });
 
-  // Store the updated savedSongs array in the browser's local storage as a JSON string
   localStorage.setItem('songLibrary', JSON.stringify(savedSongs));
 
   console.log(index);
@@ -363,7 +362,6 @@ addButtons.forEach((button, index) => {
       addButton.classList.toggle('added-active');
       addButton.textContent = 'Added';
 
-      // Store the updated array of button IDs in local storage
       buttonIDs.push(parseInt(addButton.id, 10));
       localStorage.setItem('buttonIDs', JSON.stringify(buttonIDs));
     }
@@ -401,13 +399,11 @@ function removeSong(event) {
     // Remove the respective song from the savedSongs array using the splice() method
     savedSongs.splice(indexToDelete, 1);
 
-    // Save the updated savedSongs array to localStorage as a string
     localStorage.setItem('songLibrary', JSON.stringify(savedSongs));
 
     // Remove the respective ID from the buttonIDs array using the splice() method - this styles the button back to "add"
     buttonIDs.splice(indexToDelete, 1);
 
-    // Store the updated array of button IDs in local storage
     localStorage.setItem('buttonIDs', JSON.stringify(buttonIDs));
 
     console.log(savedSongs);
